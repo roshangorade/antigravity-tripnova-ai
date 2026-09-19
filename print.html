@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TripNova AI - Project Monitoring-I Report</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #f9f9f9;
+  }
+  .container {
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  h1, h2, h3 {
+    color: #1a202c;
+  }
+  h1 { font-size: 2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+  h2 { font-size: 1.5rem; margin-top: 2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+  th, td {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+  }
+  th { background-color: #f1f5f9; }
+  .btn-print {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto 2rem;
+    padding: 0.75rem;
+    background: #2563eb;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-print:hover { background: #1d4ed8; }
+  @media print {
+    body { background: white; padding: 0; }
+    .container { box-shadow: none; padding: 0; }
+    .btn-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+
+<div class="container">
+  <h1>TRIPNOVA AI (RoamMind.ai) - PROJECT MONITORING-I REPORT</h1>
+  <p><em>MGM University – IICT Project Monitoring Guidelines Compliant</em></p>
+
+  <h2>SECTION 1 — PROJECT INTRODUCTION</h2>
+  <p><strong>Project Title:</strong> TripNova AI (RoamMind.ai)<br>
+  <strong>Project Domain:</strong> Artificial Intelligence, Web Development, Travel Tech<br>
+  <strong>Team Members:</strong> Roshan Gorade, Kshitij Jaiswal, Dhruv Jadhav, Nachiket Wagh<br>
+  <strong>Mentor:</strong> Mr. Mohsin Ansari</p>
+
+  <p><strong>Introduction & Background:</strong><br>
+  The travel industry relies heavily on digital platforms, yet the process of planning a comprehensive trip remains highly fragmented. Users must typically visit multiple platforms to book hotels, check weather, map out routes, and split expenses. TripNova AI is an intelligent, unified travel planning platform that leverages generative AI to create customized itineraries and manage the entire lifecycle of a trip in a single dashboard.</p>
+
+  <p><strong>Motivation:</strong><br>
+  Travelers face decision fatigue when planning trips due to information overload. Existing tools offer generic booking capabilities or basic itinerary mapping but lack end-to-end intelligent personalization and group expense management within a single cohesive workflow.</p>
+
+  <p><strong>Target Users:</strong><br>
+  Solo backpackers, family vacationers, business travelers, and group travelers seeking structured, budget-conscious, and personalized travel experiences.</p>
+
+  <p><strong>Project Scope:</strong><br>
+  The scope includes a full-stack web application with secure authentication, an AI conversational planner (powered by Google Gemini), destination discovery, itinerary persistence, and a user dashboard for tracking trips, bookings, and expenses. External APIs for real-time flights and weather are planned for future integration.</p>
+
+  <h2>SECTION 2 — PROBLEM STATEMENT</h2>
+  <p>Modern travelers face significant cognitive load and decision fatigue due to the fragmented nature of digital travel tools. To plan a single trip, a user must aggregate data across booking platforms, weather sites, map applications, and expense trackers. Generating a realistic, budget-aligned, and interest-specific itinerary requires hours of manual research. There is a lack of a unified, AI-driven platform that seamlessly combines destination discovery, personalized itinerary generation, and comprehensive trip management (bookings, e-tickets, and expenses) into a single cohesive user experience.</p>
+
+  <h2>SECTION 3 — OBJECTIVES</h2>
+  <p><strong>Primary Objectives:</strong><br>
+  1. Develop an AI-driven itinerary generator that produces customized travel plans based on user budget, duration, and interests.<br>
+  2. Provide a centralized dashboard for users to manage upcoming trips, view e-tickets, and track travel expenses.</p>
+
+  <p><strong>Secondary Objectives:</strong><br>
+  1. Facilitate destination discovery through curated categories and localized information.<br>
+  2. Enable saving and favoring of destinations for future planning.</p>
+
+  <p><strong>Technical Objectives:</strong><br>
+  1. Implement a responsive SPA using React, TypeScript, and Tailwind CSS.<br>
+  2. Build a secure Node.js/Express.js backend with Firebase authentication and a PostgreSQL database.<br>
+  3. Integrate generative AI (Gemini) for dynamic natural language processing and structured JSON generation.</p>
+
+  <h2>SECTION 4 — LITERATURE REVIEW / BACKGROUND STUDY</h2>
+  <table>
+    <tr><th>Existing System</th><th>Main Features</th><th>Advantages</th><th>Limitations</th><th>TripNova Difference</th></tr>
+    <tr><td>MakeMyTrip / Agoda</td><td>Flight & Hotel bookings</td><td>Reliable infrastructure</td><td>Rigid packages, zero personalization</td><td>Dynamic, AI-generated itineraries</td></tr>
+    <tr><td>Wanderlog</td><td>Manual itinerary mapping</td><td>Excellent map integration</td><td>Requires manual input, no auto AI</td><td>AI automatically generates the plan</td></tr>
+    <tr><td>ChatGPT</td><td>Text-based AI generation</td><td>Highly flexible</td><td>Outputs plain text, no UI/dashboard</td><td>Converts output into an interactive UI</td></tr>
+    <tr><td>Splitwise</td><td>Group expense splitting</td><td>Great for math/balances</td><td>Disconnected from travel context</td><td>Integrated into the trip dashboard</td></tr>
+  </table>
+
+  <h2>SECTION 5 — RESEARCH GAP</h2>
+  <p>While existing solutions excel in their specific silos, the Research Gap lies in the lack of an integrated, context-aware travel lifecycle platform. Existing systems fail to pass the data context from the "planning/inspiration" phase into the "execution/management" phase. TripNova bridges this gap by unifying AI-driven discovery, structured itinerary persistence, and post-booking management into one continuous workflow, eliminating the need for context-switching.</p>
+
+  <h2>SECTION 6 — PROPOSED SYSTEM</h2>
+  <p><strong>System Workflow:</strong><br>
+  1. <strong>Discovery:</strong> The user browses curated destinations, hotels, and food recommendations.<br>
+  2. <strong>AI Planning:</strong> The user inputs trip parameters. The backend interfaces with Gemini AI to generate a structured JSON itinerary.<br>
+  3. <strong>Trip Management:</strong> The generated itinerary is saved to the user's dashboard.<br>
+  4. <strong>Execution:</strong> The user utilizes the dashboard to manage bookings, upload e-tickets, and track daily expenses.</p>
+
+  <h2>SECTION 7 — REQUIREMENT ANALYSIS</h2>
+  <p><strong>Functional Requirements:</strong><br>
+  1. User Authentication (Firebase Admin/JWT)<br>
+  2. Profile Management<br>
+  3. Destination Discovery & Filters<br>
+  4. AI Trip Planning (via Gemini)<br>
+  5. Itinerary Management<br>
+  6. Expense & Booking UI<br>
+  7. Admin Functionality</p>
+
+  <p><strong>Non-Functional Requirements:</strong><br>
+  1. <strong>Performance:</strong> Fast AI response with fallback mechanisms.<br>
+  2. <strong>Security:</strong> API routes protected via JWT Bearer tokens.<br>
+  3. <strong>Usability:</strong> Fully responsive interface.<br>
+  4. <strong>Reliability:</strong> Graceful handling of external API rate limits.</p>
+
+  <h2>SECTION 8 — TECHNICAL REQUIREMENTS</h2>
+  <p><strong>Software Requirements:</strong><br>
+  - Frontend: React 19, Vite, TypeScript, Tailwind CSS, Lucide React<br>
+  - Backend: Node.js, Express.js<br>
+  - Database: PostgreSQL (Configured via Cloud SQL)<br>
+  - ORM: Drizzle ORM<br>
+  - Authentication: Firebase Authentication</p>
+
+  <p><strong>API Requirements:</strong><br>
+  - <strong>Implemented:</strong> Google Gemini API, Firebase Admin SDK<br>
+  - <strong>Planned (Future Scope):</strong> OpenStreetMap/Google Maps, OpenWeatherMap, Stripe/Razorpay</p>
+
+  <h2>SECTION 9 — SYSTEM ARCHITECTURE & DATABASE DESIGN</h2>
+  <p>The architecture follows a Full-Stack SPA pattern. The React frontend communicates with the Express backend via REST APIs. The backend handles business logic, proxies requests to Gemini for AI processing, and interfaces with the PostgreSQL database via Drizzle ORM.</p>
+  
+  <p><strong>Database Entities:</strong><br>
+  1. <code>users</code>: Stores authentication and profile data. Unique Firebase uid.<br>
+  2. <code>itineraries</code>: Stores generated trips. Uses jsonb column for flexible nested daily activity data.</p>
+
+  <h2>SECTION 10 — UI/UX DESIGN & IMPLEMENTATION STATUS</h2>
+  <p>The design utilizes a clean, modern Indian travel aesthetic using Tailwind's utility classes for glassmorphism and highly accessible contrast.</p>
+  <ul>
+    <li><strong>Frontend UI/UX:</strong> COMPLETED (AI Planner Chat, Visual Timeline, User Dashboard)</li>
+    <li><strong>Authentication:</strong> COMPLETED (Firebase wired to Express middleware)</li>
+    <li><strong>AI Planner Logic:</strong> COMPLETED (Gemini prompts and structured output)</li>
+    <li><strong>DB Setup (PgSQL):</strong> COMPLETED (Drizzle schema mapped)</li>
+    <li><strong>Bookings / Expenses:</strong> PLANNED (UI exists, pending backend logic)</li>
+  </ul>
+
+  <h2>SECTION 11 — VIVA PREPARATION (Top Questions)</h2>
+  <p><strong>1. What is your exact research gap?</strong><br>
+  Ans: Existing platforms handle either transactional booking OR manual planning. None use Generative AI to handle planning and instantly integrate it into a unified expense and booking dashboard.</p>
+  <p><strong>2. Why use PostgreSQL instead of MongoDB?</strong><br>
+  Ans: Travel data (users, bookings, payments, trips) is highly relational. ACID compliance is critical for accurate expense tracking and booking management.</p>
+  <p><strong>3. How does the AI planning work technically?</strong><br>
+  Ans: The Express backend sends user parameters to the Gemini API with strict system instructions to return structured JSON, not plain text. Express parses this JSON and sends it to React to render the timeline UI.</p>
+  <p><strong>4. Why use Drizzle ORM instead of Prisma?</strong><br>
+  Ans: Drizzle provides excellent TypeScript safety, is extremely lightweight, and doesn't require heavy Rust binaries, making our Node backend faster.</p>
+
+</div>
+
+</body>
+</html>

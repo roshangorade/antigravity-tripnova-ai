@@ -1,0 +1,6 @@
+{
+  "name": "TripNova AI - Smart Travel Planner",
+  "description": "AI-powered smart travel planner, day-wise itineraries, budget estimator, stays, and local guide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
