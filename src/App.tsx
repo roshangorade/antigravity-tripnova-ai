@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { TravelCategories } from './components/TravelCategories';
@@ -15,6 +15,7 @@ import { DestinationModal } from './components/DestinationModal';
 import { MapView } from './components/MapView';
 import { AuthModal } from './components/AuthModal';
 import { AboutUsModal } from './components/AboutUsModal';
+import { CareersSection } from './components/CareersSection';
 import { Footer } from './components/Footer';
 import { LocalIntelligenceSection } from './components/LocalIntelligenceSection';
 import { AIFoodDiscovery } from './components/AIFoodDiscovery';
@@ -25,9 +26,70 @@ import { POPULAR_DESTINATIONS, MOCK_USER_PROFILE } from './data/travelData';
 import { Heart, X } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.toLowerCase().replace(/\/+$/, '');
+      if (path === '/careers') {
+        return 'careers';
+      }
+    }
+    return 'home';
+  });
+
+  // URL sync & Page Title management for /careers route
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (activeTab === 'careers') {
+        if (window.location.pathname.toLowerCase().replace(/\/+$/, '') !== '/careers') {
+          window.history.pushState(null, '', '/careers');
+        }
+        document.title = 'Careers at TripNova.ai';
+      } else {
+        if (window.location.pathname.toLowerCase().replace(/\/+$/, '') === '/careers') {
+          window.history.pushState(null, '', '/');
+        }
+        document.title = 'TripNova AI - Smart Travel Planner';
+      }
+    }
+  }, [activeTab]);
+
+  // Handle browser back and forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname.toLowerCase().replace(/\/+$/, '');
+        if (path === '/careers') {
+          setActiveTab('careers');
+        } else if (activeTab === 'careers') {
+          setActiveTab('home');
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [activeTab]);
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('tripnova_theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
   const [currency, setCurrency] = useState('INR');
+
+  // Synchronize .dark class on root HTML element
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('tripnova_theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('tripnova_theme', 'light');
+    }
+  }, [isDarkMode]);
 
   // Wishlist state
   const [wishlist, setWishlist] = useState<string[]>(['goa', 'h1']);
@@ -124,7 +186,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen font-sans antialiased transition-colors duration-200 ${
+    <div className={`${isDarkMode ? 'dark ' : ''}min-h-screen font-sans antialiased transition-colors duration-200 ${
       isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-[#F8F7F4] text-slate-900'
     }`}>
       {/* Sticky Header Navbar */}
@@ -254,6 +316,14 @@ export default function App() {
 
         {activeTab === 'admin' && (
           <AdminDashboard isDarkMode={isDarkMode} />
+        )}
+
+        {activeTab === 'careers' && (
+          <CareersSection
+            isDarkMode={isDarkMode}
+            onNavigate={setActiveTab}
+            onOpenAboutUs={() => setAboutUsOpen(true)}
+          />
         )}
       </main>
 

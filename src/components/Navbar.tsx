@@ -17,7 +17,8 @@ import {
   Ticket,
   Wallet,
   LogOut,
-  Briefcase
+  Briefcase,
+  GraduationCap
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -30,6 +31,7 @@ interface NavbarProps {
   wishlistCount: number;
   onOpenWishlist: () => void;
   onOpenAuth: (mode?: 'signin' | 'signup', prompt?: string) => void;
+  onOpenAboutUs?: () => void;
   currentUser?: { name: string; email: string; avatar: string; role: string } | null;
   onOpenExpenses?: () => void;
 }
@@ -44,6 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   wishlistCount,
   onOpenWishlist,
   onOpenAuth,
+  onOpenAboutUs,
   currentUser,
   onOpenExpenses
 }) => {
@@ -74,6 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'food', label: 'Food', icon: Utensils },
     { id: 'transport', label: 'Commute', icon: Bus },
     { id: 'weather', label: 'Weather', icon: CloudSun },
+    { id: 'careers', label: 'Careers', icon: Briefcase },
     ...(currentUser ? [{ id: 'dashboard', label: 'User Panel', icon: User }] : []),
     ...(isAdmin ? [{ id: 'admin', label: 'Admin Panel', icon: ShieldCheck, badge: 'ADMIN' }] : [])
   ];
@@ -211,6 +215,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Plan with AI</span>
             </button>
 
+            {/* About Project Button */}
+            {onOpenAboutUs && (
+              <button
+                id="header-about-us-cta"
+                onClick={onOpenAboutUs}
+                className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-900 dark:text-amber-300 hover:bg-amber-500/20 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+                title="About TripNova.ai B.Tech Project & Team"
+              >
+                <GraduationCap className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <span>About Project</span>
+              </button>
+            )}
+
             {/* AUTHENTICATION CONTROLS */}
             {currentUser ? (
               /* LOGGED-IN: Avatar Button with Interactive Dropdown Menu */
@@ -317,6 +334,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                           <span className="ml-auto text-[9px] bg-amber-500/20 text-amber-600 dark:text-amber-300 px-1.5 py-0.5 rounded-full uppercase">Admin</span>
                         </button>
                       )}
+
+                      {onOpenAboutUs && (
+                        <button
+                          onClick={() => {
+                            setProfileDropdownOpen(false);
+                            onOpenAboutUs();
+                          }}
+                          className="w-full px-4 py-2 text-left flex items-center gap-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-amber-800 dark:text-amber-300 font-bold"
+                        >
+                          <GraduationCap className="w-4 h-4 text-amber-500" />
+                          <span>About Project & Team</span>
+                        </button>
+                      )}
                     </div>
 
                     {/* Logout Footer */}
@@ -419,6 +449,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 );
               })}
             </div>
+
+            {/* Mobile About Us Button */}
+            {onOpenAboutUs && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenAboutUs();
+                }}
+                className="w-full flex items-center justify-center gap-2 p-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-900 dark:text-amber-300 text-xs font-bold transition-colors cursor-pointer"
+              >
+                <GraduationCap className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                <span>About TripNova (B.Tech Final Year Project)</span>
+              </button>
+            )}
 
             {/* Mobile Auth CTAs if logged out */}
             {!currentUser && (

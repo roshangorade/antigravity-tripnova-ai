@@ -51,6 +51,18 @@ export const Footer: React.FC<FooterProps> = ({ isDarkMode, onNavigate, onOpenAb
               <li><button onClick={() => onNavigate('ai-planner')} className="hover:text-white transition-colors cursor-pointer">AI Trip Planner</button></li>
               <li><button onClick={() => onNavigate('categories')} className="hover:text-white transition-colors cursor-pointer">Travel Categories</button></li>
               <li><button onClick={() => onNavigate('hotels')} className="hover:text-white transition-colors cursor-pointer">Verified Stays</button></li>
+              <li>
+                <a 
+                  href="/careers" 
+                  onClick={(e) => { 
+                    e.preventDefault(); 
+                    onNavigate('careers'); 
+                  }} 
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
+                  Careers
+                </a>
+              </li>
             </ul>
           </div>
 
