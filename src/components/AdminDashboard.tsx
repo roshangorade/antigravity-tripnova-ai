@@ -33,14 +33,19 @@ import {
   FileText, 
   ExternalLink,
   Info,
-  Ticket
+  Ticket,
+  Loader2,
+  RefreshCw,
+  UploadCloud
 } from 'lucide-react';
 
 interface AdminDashboardProps {
   isDarkMode: boolean;
+  currentUser?: { role?: string; name?: string; email?: string } | null;
+  onOpenAuthModal?: () => void;
 }
 
-export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isDarkMode }) => {
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isDarkMode, currentUser, onOpenAuthModal }) => {
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(false);
@@ -65,10 +70,40 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isDarkMode }) =>
   // Forms state for Add actions
   const [newItemForm, setNewItemForm] = useState<any>({});
 
+  const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : '';
   const headers = {
-    'Authorization': 'Bearer fake-token-for-now',
+    'Authorization': `Bearer ${token || ''}`,
     'Content-Type': 'application/json'
   };
+
+  const [importingCsv, setImportingCsv] = useState(false);
+  const [importMessage, setImportMessage] = useState<string | null>(null);
+
+  const handleSyncCSV = async () => {
+    setImportingCsv(true);
+    setImportMessage(null);
+    try {
+      const res = await fetch('/api/admin/import-csv', {
+        method: 'POST',
+        headers
+      });
+      const data = await res.json();
+      if (data.success) {
+        setImportMessage(data.message);
+        fetchTabData('db-overview');
+        fetchTabData('hotels');
+        fetchTabData('restaurants');
+      } else {
+        setImportMessage('Error: ' + data.message);
+      }
+    } catch (err: any) {
+      setImportMessage('Failed: ' + err.message);
+    } finally {
+      setImportingCsv(false);
+    }
+  };
+
+  const isAdmin = currentUser?.role === 'ADMIN';
 
   useEffect(() => {
     fetchStats();
@@ -212,6 +247,39 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isDarkMode }) =>
       console.error(err);
     }
   };
+
+  if (!token || !isAdmin) {
+    return (
+      <section className={`min-h-[75vh] py-16 px-4 flex items-center justify-center transition-colors ${
+        isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50/70 text-slate-900'
+      }`}>
+        <div className={`p-8 sm:p-10 rounded-3xl border shadow-xl max-w-lg w-full text-center ${
+          isDarkMode ? 'bg-[#131E32] border-slate-800' : 'bg-white border-slate-200/90'
+        }`}>
+          <div className="w-16 h-16 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto mb-4 border border-rose-500/20">
+            <Lock className="w-8 h-8" />
+          </div>
+          <h2 className="text-2xl font-bold tracking-tight mb-2 text-slate-900 dark:text-white">Admin Access Restricted</h2>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 font-medium leading-relaxed">
+            The TripNova Administration Console requires an active session with administrator privileges. Please sign in with an authorized account to continue.
+          </p>
+          <div className="p-3.5 mb-6 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-left text-xs space-y-1">
+            <p className="font-bold text-slate-800 dark:text-slate-200">Default Admin Credentials:</p>
+            <p className="text-slate-600 dark:text-slate-400 font-mono">Email: <span className="font-semibold text-sky-600 dark:text-sky-400">admin@tripnova.ai</span></p>
+            <p className="text-slate-600 dark:text-slate-400 font-mono">Password: <span className="font-semibold text-sky-600 dark:text-sky-400">Admin@TripNova2026!</span></p>
+          </div>
+          {onOpenAuthModal && (
+            <button
+              onClick={onOpenAuthModal}
+              className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-sky-600 dark:hover:bg-sky-500 text-white font-bold text-xs shadow-lg shadow-sky-500/20 transition-all cursor-pointer"
+            >
+              Sign In to Admin Portal
+            </button>
+          )}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={`min-h-screen py-6 transition-colors flex ${isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50/70 text-slate-900'}`}>
@@ -711,7 +779,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isDarkMode }) =>
         {/* SECTION 11: DATABASE OVERVIEW */}
         {!loading && activeTab === 'db-overview' && dbOverview && (
           <div className="space-y-6">
-            <div className={`p-6 rounded-2xl border flex items-center justify-between ${
+            <div className={`p-6 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
               isDarkMode ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white border-slate-200/80'
             } shadow-xs`}>
               <div>
@@ -722,12 +790,38 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ isDarkMode }) =>
                 <p className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1">
                   Engine: <span className="font-mono font-bold text-sky-600 dark:text-sky-400">{dbOverview.engine}</span>
                 </p>
+                {importMessage && (
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-2">
+                    {importMessage}
+                  </p>
+                )}
               </div>
 
-              <span className="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/20 flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4" />
-                Connection Pool Healthy
-              </span>
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={handleSyncCSV}
+                  disabled={importingCsv}
+                  className="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-xs disabled:opacity-50 cursor-pointer"
+                >
+                  {importingCsv ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Syncing CSVs...</span>
+                    </>
+                  ) : (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5" />
+                      <span>Import / Sync CSVs</span>
+                    </>
+                  )}
+                </button>
+
+                <span className="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/20 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4" />
+                  Connection Pool Healthy
+                </span>
+              </div>
             </div>
 
             {/* Counts Grid */}

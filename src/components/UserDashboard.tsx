@@ -21,7 +21,13 @@ import {
   LogOut,
   Sparkles,
   KeyRound,
-  FileText
+  FileText,
+  Ticket,
+  Printer,
+  Building2,
+  Eye,
+  CreditCard,
+  AlertCircle
 } from 'lucide-react';
 
 interface UserDashboardProps {
@@ -45,6 +51,11 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+
+  // Bookings state
+  const [userBookings, setUserBookings] = useState<any[]>([]);
+  const [isLoadingBookings, setIsLoadingBookings] = useState(false);
+  const [selectedVoucherBooking, setSelectedVoucherBooking] = useState<any | null>(null);
 
   // Editable Form State initialized from currentUser
   const [formData, setFormData] = useState<UserProfile>(
@@ -83,6 +94,28 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
     }
   }, [currentUser]);
 
+  // Load user bookings from backend API
+  React.useEffect(() => {
+    const fetchUserBookings = async () => {
+      setIsLoadingBookings(true);
+      try {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : null;
+        const res = await fetch('/api/bookings', {
+          headers: token ? { Authorization: `Bearer ${token}` } : {}
+        });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.bookings)) {
+          setUserBookings(data.bookings);
+        }
+      } catch (err) {
+        console.error('Error fetching bookings:', err);
+      } finally {
+        setIsLoadingBookings(false);
+      }
+    };
+    fetchUserBookings();
+  }, [currentUser]);
+
   const avatarPresets = [
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
     'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
@@ -92,7 +125,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
     'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=200&q=80'
   ];
 
-  const handleSaveProfile = (e: React.FormEvent) => {
+  const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     const computedName = `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim() || formData.username;
     const updated: UserProfile = {
@@ -100,7 +133,32 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
       name: computedName,
       avatar: formData.profileImage
     };
-    onUpdateProfile(updated);
+
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : null;
+      if (token) {
+        const res = await fetch('/api/users/profile', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(updated)
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          onUpdateProfile(data.user);
+        } else {
+          onUpdateProfile(updated);
+        }
+      } else {
+        onUpdateProfile(updated);
+      }
+    } catch (err) {
+      console.error('Failed to persist profile to backend:', err);
+      onUpdateProfile(updated);
+    }
+
     setSaveSuccess(true);
     setIsEditing(false);
     setTimeout(() => setSaveSuccess(false), 3000);
@@ -679,6 +737,108 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
           )}
         </div>
 
+        {/* My Bookings & Stays Section */}
+        <div>
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                <Ticket className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+                <span>My Bookings & Stays</span>
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-0.5">
+                Confirmed reservations, test e-tickets, and live property vouchers
+              </p>
+            </div>
+            <span className="text-xs text-slate-700 dark:text-slate-400 font-semibold">
+              {userBookings.length} {userBookings.length === 1 ? 'Stay' : 'Stays'}
+            </span>
+          </div>
+
+          {isLoadingBookings ? (
+            <div className={`p-8 rounded-2xl border text-center text-xs ${
+              isDarkMode ? 'bg-[#131E32] border-slate-800' : 'bg-white border-slate-200/90 shadow-xs'
+            }`}>
+              <div className="w-6 h-6 border-2 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+              <p className="text-slate-600 dark:text-slate-400">Loading stay reservations...</p>
+            </div>
+          ) : userBookings.length === 0 ? (
+            <div className={`p-8 rounded-2xl border text-center text-xs text-slate-600 dark:text-slate-400 font-medium ${
+              isDarkMode ? 'bg-[#131E32] border-slate-800' : 'bg-white border-slate-300'
+            }`}>
+              No stay reservations recorded yet. Browse the <strong className="text-sky-600 dark:text-sky-400 font-bold">Hotels & Stays</strong> section to reserve your next stay!
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {userBookings.map((bk) => {
+                const isConfirmed = bk.status === 'CONFIRMED';
+                const isPending = bk.status === 'PENDING';
+                return (
+                  <div
+                    key={bk.id}
+                    className={`p-5 rounded-2xl border flex flex-col justify-between transition-all hover:shadow-sm ${
+                      isDarkMode ? 'bg-[#131E32] border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200/90 hover:border-slate-300 shadow-xs'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex justify-between items-start mb-2">
+                        <span className={`px-2.5 py-0.5 rounded-md font-bold font-mono text-[10px] ${
+                          isConfirmed 
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
+                            : isPending
+                              ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                              : 'bg-slate-500/10 text-slate-500 border border-slate-500/20'
+                        }`}>
+                          {bk.status}
+                        </span>
+                        <span className="font-mono text-xs font-bold text-sky-600 dark:text-sky-400">
+                          {bk.bookingReference}
+                        </span>
+                      </div>
+
+                      <h4 className="font-bold text-base text-slate-900 dark:text-white leading-snug">
+                        {bk.hotelName}
+                      </h4>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-0.5 flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-rose-500 shrink-0" />
+                        <span>{bk.destination}</span>
+                      </p>
+
+                      <div className="mt-3 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 text-xs space-y-1">
+                        <div className="flex justify-between text-slate-600 dark:text-slate-400 text-[11px]">
+                          <span>Window:</span>
+                          <span className="font-semibold text-slate-800 dark:text-slate-200">{bk.checkInDate} → {bk.checkOutDate}</span>
+                        </div>
+                        <div className="flex justify-between text-slate-600 dark:text-slate-400 text-[11px]">
+                          <span>Guests:</span>
+                          <span className="font-semibold text-slate-800 dark:text-slate-200">{bk.guestsCount || 2} Persons</span>
+                        </div>
+                        <div className="flex justify-between text-slate-600 dark:text-slate-400 text-[11px]">
+                          <span>Amount:</span>
+                          <span className="font-bold text-slate-900 dark:text-white">₹{(bk.totalAmount || 0).toLocaleString('en-IN')}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                        {bk.ticketId || ('ET-' + bk.id.substring(0, 6).toUpperCase())}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedVoucherBooking(bk)}
+                        className="px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                      >
+                        <Ticket className="w-3.5 h-3.5" />
+                        <span>View E-Ticket</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
         {/* Unlocked Badges */}
         <div>
           <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-4">Travel Badges</h3>
@@ -698,6 +858,104 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
         </div>
 
       </div>
+
+      {/* E-Ticket / Voucher Modal */}
+      {selectedVoucherBooking && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm overflow-y-auto">
+          <div className={`w-full max-w-lg rounded-2xl border shadow-2xl p-6 transition-all my-8 ${
+            isDarkMode ? 'bg-[#131E32] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
+          }`}>
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-2">
+                <Ticket className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+                <h3 className="font-bold text-base">TripNova Stay Voucher</h3>
+              </div>
+              <button
+                onClick={() => setSelectedVoucherBooking(null)}
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="my-5 p-5 rounded-2xl border border-dashed border-sky-400/50 bg-sky-50/50 dark:bg-sky-950/30 text-xs space-y-4">
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="text-[10px] font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
+                    Official Reservation Voucher
+                  </span>
+                  <h4 className="text-lg font-black text-slate-900 dark:text-white mt-0.5">
+                    {selectedVoucherBooking.hotelName}
+                  </h4>
+                  <p className="text-slate-600 dark:text-slate-400 font-medium">
+                    {selectedVoucherBooking.destination}
+                  </p>
+                </div>
+                <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold font-mono text-xs">
+                  {selectedVoucherBooking.status}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">
+                <div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">Booking Reference</span>
+                  <span className="font-mono font-bold text-sky-600 dark:text-sky-400">{selectedVoucherBooking.bookingReference}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">E-Ticket ID</span>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">{selectedVoucherBooking.ticketId || ('ET-' + selectedVoucherBooking.id.substring(0, 6).toUpperCase())}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">Check-in Date</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{selectedVoucherBooking.checkInDate}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">Check-out Date</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{selectedVoucherBooking.checkOutDate}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">Guests</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">{selectedVoucherBooking.guestsCount || 2} Persons</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">Total Amount</span>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400">₹{(selectedVoucherBooking.totalAmount || 0).toLocaleString('en-IN')} (PAID)</span>
+                </div>
+              </div>
+
+              {selectedVoucherBooking.notes && (
+                <div className="pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px]">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">Special Requests</span>
+                  <p className="italic text-slate-600 dark:text-slate-300">{selectedVoucherBooking.notes}</p>
+                </div>
+              )}
+
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                <span>Academic MVP Demonstration Record</span>
+                <span className="font-mono">TripNova.ai • 2026</span>
+              </div>
+            </div>
+
+            <div className="flex gap-2 justify-end pt-2">
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <Printer className="w-4 h-4 text-slate-500" />
+                <span>Print Voucher</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedVoucherBooking(null)}
+                className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-sky-600 dark:hover:bg-sky-500 text-white font-semibold text-xs cursor-pointer shadow-xs"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

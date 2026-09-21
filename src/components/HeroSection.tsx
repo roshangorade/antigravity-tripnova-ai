@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, Calendar, Users, DollarSign, Compass, ArrowRight, MapPin, Bus, Plane, Train, Car } from 'lucide-react';
 import { BudgetTier, TravelStyle } from '../types';
+import { BudgetInputSelector } from './BudgetInputSelector';
+import { DestinationSearchInput } from './DestinationSearchInput';
 
 interface HeroSectionProps {
   onGenerateTrip: (query: {
@@ -8,7 +10,8 @@ interface HeroSectionProps {
     destination: string;
     durationDays: number;
     travelersCount: number;
-    budgetTier: BudgetTier;
+    budget: number;
+    budgetTier?: BudgetTier;
     travelStyle: TravelStyle;
     interests: string[];
     transportMode: string;
@@ -34,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
   const [destination, setDestination] = useState('Goa');
   const [durationDays, setDurationDays] = useState(4);
   const [travelersCount, setTravelersCount] = useState(2);
-  const [budgetTier, setBudgetTier] = useState<BudgetTier>('moderate');
+  const [budget, setBudget] = useState<number>(10000);
   const [travelStyle, setTravelStyle] = useState<TravelStyle>('couple');
   const [selectedInterests, setSelectedInterests] = useState<string[]>(['Beaches', 'Food', 'Nightlife']);
   const [transportMode, setTransportMode] = useState('Flight');
@@ -56,12 +59,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!budget || isNaN(budget) || budget <= 0) {
+      alert('Please enter a valid trip budget greater than ₹0.');
+      return;
+    }
     onGenerateTrip({
       origin,
       destination,
       durationDays,
       travelersCount,
-      budgetTier,
+      budget,
       travelStyle,
       interests: selectedInterests,
       transportMode
@@ -131,48 +138,40 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
             {/* Row 1: From & Destination */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
-                  Starting From (City)
-                </label>
-                <div className="relative">
-                  <MapPin className="w-4 h-4 absolute left-3 top-3 text-slate-500 dark:text-slate-400" />
-                  <input
-                    id="hero-origin-input"
-                    type="text"
-                    value={origin}
-                    onChange={(e) => setOrigin(e.target.value)}
-                    placeholder="e.g. Mumbai, Delhi, Bengaluru"
-                    className={`w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-sky-500 font-medium placeholder:text-slate-500 ${
-                      isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-300 text-slate-900'
-                    }`}
-                    required
-                  />
-                </div>
+                <DestinationSearchInput
+                  id="hero-origin-input"
+                  label="Starting From (City)"
+                  value={origin}
+                  onChange={(val) => setOrigin(val)}
+                  placeholder="e.g. Mumbai, Delhi, Bengaluru, Pune"
+                  isDarkMode={isDarkMode}
+                  iconColor="text-slate-500 dark:text-slate-400"
+                  showPopularChips={true}
+                  showInlineChips={false}
+                  required
+                />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
-                  Destination
-                </label>
-                <div className="relative">
-                  <MapPin className="w-4 h-4 absolute left-3 top-3 text-sky-500" />
-                  <input
-                    id="hero-destination-input"
-                    type="text"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                    placeholder="e.g. Goa, Leh Ladakh, Jaipur, Udaipur"
-                    className={`w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-sky-500 font-medium placeholder:text-slate-500 ${
-                      isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-300 text-slate-900'
-                    }`}
-                    required
-                  />
-                </div>
+                <DestinationSearchInput
+                  id="hero-destination-input"
+                  label="Destination"
+                  value={destination}
+                  onChange={(val) => setDestination(val)}
+                  placeholder="Search any destination (e.g. Mahabaleshwar, Dubai, Goa, Paris)..."
+                  isDarkMode={isDarkMode}
+                  iconColor="text-sky-500"
+                  showPopularChips={true}
+                  showInlineChips={true}
+                  inlineChipsLabel="Popular:"
+                  quickShortcuts={['Goa', 'Jaipur', 'Udaipur', 'Manali', 'Mumbai', 'Kerala']}
+                  required
+                />
               </div>
             </div>
 
-            {/* Row 2: Duration, Travelers, Budget, Style */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {/* Row 2: Duration, Travelers, Travel Style */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               <div>
                 <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
                   Duration (Days)
@@ -215,24 +214,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
 
               <div>
                 <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
-                  Budget Tier
-                </label>
-                <select
-                  id="hero-budget-select"
-                  value={budgetTier}
-                  onChange={(e) => setBudgetTier(e.target.value as BudgetTier)}
-                  className={`w-full px-3 py-2.5 text-sm rounded-xl border focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-sky-500 font-medium cursor-pointer ${
-                    isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-300 text-slate-900'
-                  }`}
-                >
-                  <option value="backpacker">Backpacker (₹1.8k/day)</option>
-                  <option value="moderate">Moderate (₹4.2k/day)</option>
-                  <option value="luxury">Luxury (₹12k+/day)</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
                   Travel Style
                 </label>
                 <select
@@ -250,6 +231,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
                   <option value="adventure">Thrill Seekers</option>
                 </select>
               </div>
+            </div>
+
+            {/* Row 3: Your Trip Budget */}
+            <div className={`p-4 rounded-2xl border transition-all ${
+              isDarkMode 
+                ? 'bg-slate-900/60 border-slate-750/80 shadow-inner' 
+                : 'bg-slate-50/90 border-slate-200/90 shadow-xs'
+            }`}>
+              <BudgetInputSelector
+                idPrefix="hero"
+                value={budget}
+                onChange={setBudget}
+                isDarkMode={isDarkMode}
+              />
             </div>
 
             {/* Row 3: Transport Preference & Interests */}
@@ -302,7 +297,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
                 setOrigin('Mumbai');
                 setDestination('Goa');
                 setDurationDays(3);
-                setBudgetTier('moderate');
+                setBudget(10000);
               }}
               className="text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white underline font-medium cursor-pointer"
             >
@@ -314,7 +309,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
                 setOrigin('Delhi');
                 setDestination('Leh Ladakh');
                 setDurationDays(6);
-                setBudgetTier('moderate');
+                setBudget(25000);
               }}
               className="text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white underline font-medium cursor-pointer"
             >
@@ -326,7 +321,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onGenerateTrip, isDark
                 setOrigin('Bengaluru');
                 setDestination('Udaipur');
                 setDurationDays(4);
-                setBudgetTier('luxury');
+                setBudget(50000);
               }}
               className="text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white underline font-medium cursor-pointer"
             >

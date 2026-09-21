@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Clock, ShieldCheck, CloudSun, Navigation2, Loader2, MapPin } from 'lucide-react';
+import { DestinationSearchInput } from './DestinationSearchInput';
 
 export const SmartRouteRecommendation: React.FC = () => {
   const [origin, setOrigin] = useState('');
@@ -43,24 +44,28 @@ export const SmartRouteRecommendation: React.FC = () => {
 
       <form onSubmit={handleRecommend} className="mb-6 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="relative">
-            <MapPin className="absolute left-3 top-3.5 text-slate-500 w-5 h-5" />
-            <input
-              type="text"
+          <div>
+            <DestinationSearchInput
+              id="smart-route-origin"
               value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              placeholder="Origin (e.g. Pune)"
-              className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 placeholder:text-slate-500 font-medium"
+              onChange={(val) => setOrigin(val)}
+              placeholder="Origin (e.g. Pune, Mumbai)..."
+              showPopularChips={true}
+              showInlineChips={false}
+              iconColor="text-slate-500"
+              label=""
             />
           </div>
-          <div className="relative">
-            <MapPin className="absolute left-3 top-3.5 text-emerald-600 w-5 h-5" />
-            <input
-              type="text"
+          <div>
+            <DestinationSearchInput
+              id="smart-route-destination"
               value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              placeholder="Destination (e.g. Mumbai)"
-              className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-900 placeholder:text-slate-500 font-medium"
+              onChange={(val) => setDestination(val)}
+              placeholder="Destination (e.g. Mahabaleshwar, Goa)..."
+              showPopularChips={true}
+              showInlineChips={false}
+              iconColor="text-emerald-600"
+              label=""
             />
           </div>
         </div>

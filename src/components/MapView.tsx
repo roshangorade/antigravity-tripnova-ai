@@ -11,7 +11,8 @@ import {
 } from '@vis.gl/react-google-maps';
 import { OpenStreetMapLeaflet, MapMarkerItem } from './OpenStreetMapLeaflet';
 import { POPULAR_DESTINATIONS, FEATURED_HOTELS, FEATURED_RESTAURANTS } from '../data/travelData';
-import { Destination, Hotel, Restaurant } from '../types';
+import { Destination, Hotel, Restaurant, CanonicalDestination } from '../types';
+import { DestinationSearchInput } from './DestinationSearchInput';
 import {
   MapPin,
   Hotel as HotelIcon,
@@ -34,6 +35,8 @@ interface MapViewProps {
   isDarkMode: boolean;
   onSelectDestination: (name: string) => void;
   onOpenDestinationModal?: (destination: Destination) => void;
+  currentDestination?: CanonicalDestination | null;
+  onDestinationChange?: (destination: CanonicalDestination) => void;
 }
 
 const API_KEY =
@@ -252,65 +255,204 @@ export const MapView: React.FC<MapViewProps> = ({
   isDarkMode,
   onSelectDestination,
   onOpenDestinationModal,
+  currentDestination,
+  onDestinationChange
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'destinations' | 'hotels'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedItem, setSelectedItem] = useState<{ id: string; type: 'destination' | 'hotel' } | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'destinations' | 'hotels' | 'restaurants' | 'attractions'>('all');
+  const [searchQuery, setSearchQuery] = useState(currentDestination?.name || 'Nashik');
+  const [selectedItem, setSelectedItem] = useState<{ id: string; type: 'destination' | 'hotel' | 'restaurant' } | null>(null);
+
+  // Dynamic Markers for searched location
+  const [dynamicMarkers, setDynamicMarkers] = useState<MapMarkerItem[]>([]);
+  const [mapCenter, setMapCenter] = useState<{ lat: number; lng: number }>({
+    lat: currentDestination?.latitude || 19.9975,
+    lng: currentDestination?.longitude || 73.7898
+  });
+
+  // Sync if global destination changes
+  useEffect(() => {
+    if (currentDestination && currentDestination.latitude && currentDestination.longitude) {
+      setSearchQuery(currentDestination.name);
+      setMapCenter({ lat: currentDestination.latitude, lng: currentDestination.longitude });
+      loadEntitiesForLocation(currentDestination);
+    }
+  }, [currentDestination]);
+
+  const loadEntitiesForLocation = async (dest: CanonicalDestination) => {
+    try {
+      const markers: MapMarkerItem[] = [
+        {
+          id: dest.id || 'dest_center',
+          name: dest.name,
+          position: { lat: dest.latitude, lng: dest.longitude },
+          type: 'destination',
+          rating: 4.8,
+          image: dest.heroImage || 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80',
+          subtitle: `${dest.state ? `${dest.state}, ` : ''}${dest.country}`,
+          price: dest.avgDailyCostINR || 2500
+        }
+      ];
+
+      // Fetch hotels for destination
+      try {
+        const hotelRes = await fetch(`/api/search/hotels?destination=${encodeURIComponent(dest.name)}&limit=6&radius=30`);
+        const hotelData = await hotelRes.json();
+        if (hotelData.success && Array.isArray(hotelData.properties)) {
+          hotelData.properties.forEach((h: any, idx: number) => {
+            const hLat = h.latitude || (dest.latitude + (idx % 2 === 0 ? 0.015 : -0.015) * ((idx + 1) * 0.7));
+            const hLng = h.longitude || (dest.longitude + (idx % 3 === 0 ? 0.02 : -0.018) * ((idx + 1) * 0.7));
+            markers.push({
+              id: h.id || `hotel_${idx}`,
+              name: h.name,
+              position: { lat: hLat, lng: hLng },
+              type: 'hotel',
+              rating: h.rating || 4.6,
+              image: h.image,
+              subtitle: h.location || dest.name,
+              price: h.priceNumber || 3500
+            });
+          });
+        }
+      } catch (e) {
+        // Continue with available markers
+      }
+
+      // Fetch attractions / local spots for destination
+      try {
+        const attrRes = await fetch(`/api/destinations/attractions?q=${encodeURIComponent(dest.name)}&limit=6`);
+        const attrData = await attrRes.json();
+        if (attrData.success && Array.isArray(attrData.attractions)) {
+          attrData.attractions.forEach((a: any, idx: number) => {
+            const aLat = a.latitude || (dest.latitude + (idx % 2 === 1 ? 0.025 : -0.02) * ((idx + 1) * 0.6));
+            const aLng = a.longitude || (dest.longitude + (idx % 2 === 0 ? -0.022 : 0.024) * ((idx + 1) * 0.6));
+            markers.push({
+              id: a.id || `attr_${idx}`,
+              name: a.name,
+              position: { lat: aLat, lng: aLng },
+              type: 'destination',
+              rating: a.rating || 4.7,
+              image: a.image,
+              subtitle: a.category || `${dest.name} Attraction`,
+              price: dest.avgDailyCostINR || 2500
+            });
+          });
+        }
+      } catch (e) {
+        // Continue
+      }
+
+      setDynamicMarkers(markers);
+    } catch (err) {
+      console.error('Failed to load map markers for location:', err);
+    }
+  };
+
+  // Initial load
+  useEffect(() => {
+    const initialCanonical: CanonicalDestination = currentDestination || {
+      id: 'dest_nashik',
+      name: 'Nashik',
+      displayName: 'Nashik, Maharashtra, India',
+      city: 'Nashik',
+      state: 'Maharashtra',
+      country: 'India',
+      latitude: 19.9975,
+      longitude: 73.7898,
+      placeId: null,
+      source: 'dataset',
+      avgDailyCostINR: 2500
+    };
+    loadEntitiesForLocation(initialCanonical);
+  }, []);
 
   // Route Planning State
   const [routeModeActive, setRouteModeActive] = useState(false);
-  const [originDestId, setOriginDestId] = useState<string>('jaipur');
-  const [targetDestId, setTargetDestId] = useState<string>('udaipur');
+  const [originName, setOriginName] = useState('Mumbai');
+  const [originCoord, setOriginCoord] = useState<{ lat: number; lng: number }>({ lat: 19.0760, lng: 72.8777 });
+  const [targetName, setTargetName] = useState(currentDestination?.name || 'Nashik');
+  const [targetCoord, setTargetCoord] = useState<{ lat: number; lng: number }>({
+    lat: currentDestination?.latitude || 19.9975,
+    lng: currentDestination?.longitude || 73.7898
+  });
   const [travelMode, setTravelMode] = useState<'DRIVING' | 'WALKING'>('DRIVING');
   const [routeInfo, setRouteInfo] = useState<{ distance: string; duration: string } | null>(null);
 
-  // Filter destinations
-  const filteredDestinations = POPULAR_DESTINATIONS.filter(d =>
-    d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    d.state.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Resolve origin coordinates whenever originName changes
+  useEffect(() => {
+    const trimmed = originName.trim();
+    if (!trimmed) return;
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/destinations/resolve?q=${encodeURIComponent(trimmed)}`);
+        const data = await res.json();
+        if (data.success && data.destination?.coordinates) {
+          setOriginCoord(data.destination.coordinates);
+        }
+      } catch (e) {
+        // keep current
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [originName]);
 
-  const originDest = POPULAR_DESTINATIONS.find(d => d.id === originDestId);
-  const targetDest = POPULAR_DESTINATIONS.find(d => d.id === targetDestId);
+  // Resolve target coordinates whenever targetName changes
+  useEffect(() => {
+    const trimmed = targetName.trim();
+    if (!trimmed) return;
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/destinations/resolve?q=${encodeURIComponent(trimmed)}`);
+        const data = await res.json();
+        if (data.success && data.destination?.coordinates) {
+          setTargetCoord(data.destination.coordinates);
+        }
+      } catch (e) {
+        // keep current
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [targetName]);
+
+  const handleDestinationSelect = (canonical: CanonicalDestination) => {
+    setSearchQuery(canonical.name);
+    setMapCenter({ lat: canonical.latitude, lng: canonical.longitude });
+    setTargetName(canonical.name);
+    setTargetCoord({ lat: canonical.latitude, lng: canonical.longitude });
+    if (onDestinationChange) {
+      onDestinationChange(canonical);
+    }
+    loadEntitiesForLocation(canonical);
+  };
 
   // Markers for OpenStreetMap Leaflet Fallback
-  const leafletMarkers: MapMarkerItem[] = [
-    ...(selectedCategory === 'all' || selectedCategory === 'destinations'
-      ? filteredDestinations.map((d) => ({
-          id: d.id,
-          name: d.name,
-          position: d.coordinates,
-          type: 'destination' as const,
-          rating: d.rating,
-          image: d.heroImage,
-          subtitle: `${d.state}, ${d.country}`,
-          price: d.avgDailyCostINR,
-        }))
-      : []),
-    ...(selectedCategory === 'all' || selectedCategory === 'hotels'
-      ? FEATURED_HOTELS.map((h) => ({
-          id: h.id,
-          name: h.name,
-          position: h.coordinates,
-          type: 'hotel' as const,
-          rating: h.rating,
-          image: h.image,
-          subtitle: h.locationDesc,
-          price: h.pricePerNightINR,
-        }))
-      : []),
-  ];
+  const leafletMarkers: MapMarkerItem[] = dynamicMarkers.length > 0 
+    ? dynamicMarkers.filter(m => {
+        if (selectedCategory === 'all') return true;
+        if (selectedCategory === 'destinations') return m.type === 'destination';
+        if (selectedCategory === 'hotels') return m.type === 'hotel';
+        return true;
+      })
+    : POPULAR_DESTINATIONS.map(d => ({
+        id: d.id,
+        name: d.name,
+        position: d.coordinates,
+        type: 'destination' as const,
+        rating: d.rating,
+        image: d.heroImage,
+        subtitle: `${d.state}, ${d.country}`,
+        price: d.avgDailyCostINR,
+      }));
 
   // Route calculation for OpenStreetMap mode
   useEffect(() => {
-    if (!hasValidKey && routeModeActive && originDest && targetDest) {
+    if (!hasValidKey && routeModeActive && originCoord && targetCoord) {
       const R = 6371; // km
-      const dLat = ((targetDest.coordinates.lat - originDest.coordinates.lat) * Math.PI) / 180;
-      const dLon = ((targetDest.coordinates.lng - originDest.coordinates.lng) * Math.PI) / 180;
+      const dLat = ((targetCoord.lat - originCoord.lat) * Math.PI) / 180;
+      const dLon = ((targetCoord.lng - originCoord.lng) * Math.PI) / 180;
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos((originDest.coordinates.lat * Math.PI) / 180) *
-          Math.cos((targetDest.coordinates.lat * Math.PI) / 180) *
+        Math.cos((originCoord.lat * Math.PI) / 180) *
+          Math.cos((targetCoord.lat * Math.PI) / 180) *
           Math.sin(dLon / 2) *
           Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
@@ -325,7 +467,7 @@ export const MapView: React.FC<MapViewProps> = ({
         duration: durStr,
       });
     }
-  }, [hasValidKey, routeModeActive, originDest, targetDest, travelMode]);
+  }, [hasValidKey, routeModeActive, originCoord, targetCoord, travelMode]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-4">
@@ -338,9 +480,25 @@ export const MapView: React.FC<MapViewProps> = ({
             <Compass className="w-5 h-5 animate-spin-slow" />
           </div>
           <div>
-            <h1 className="text-lg font-bold font-serif-editorial">Interactive Google Map</h1>
-            <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Explore destinations, stays, & live route calculations</p>
+            <h1 className="text-lg font-bold font-serif-editorial">Interactive Travel Map</h1>
+            <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+              Explore {currentDestination?.name || 'any destination'}, verified stays, & routes
+            </p>
           </div>
+        </div>
+
+        {/* Universal Destination Search in Map Bar */}
+        <div className="w-full sm:w-80">
+          <DestinationSearchInput
+            id="map-main-search"
+            value={searchQuery}
+            onChange={(val) => setSearchQuery(val)}
+            onSelectCanonical={handleDestinationSelect}
+            placeholder="Search map location (e.g. Nashik, Paris)..."
+            isDarkMode={isDarkMode}
+            showPopularChips={false}
+            showInlineChips={false}
+          />
         </div>
 
         {/* Filter Badges & Route Toggle */}
@@ -365,7 +523,7 @@ export const MapView: React.FC<MapViewProps> = ({
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 font-semibold'
               }`}
             >
-              Destinations
+              Attractions
             </button>
             <button
               onClick={() => setSelectedCategory('hotels')}
@@ -375,7 +533,7 @@ export const MapView: React.FC<MapViewProps> = ({
                   : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 font-semibold'
               }`}
             >
-              Hotels & Stays
+              Stays & Hotels
             </button>
           </div>
 
@@ -391,7 +549,7 @@ export const MapView: React.FC<MapViewProps> = ({
             }`}
           >
             <Navigation className="w-3.5 h-3.5" />
-            <span>{routeModeActive ? 'Close Route Calculator' : 'Route Calculator'}</span>
+            <span>{routeModeActive ? 'Close Route' : 'Route Calculator'}</span>
           </button>
         </div>
       </div>
@@ -411,33 +569,45 @@ export const MapView: React.FC<MapViewProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
             <div>
-              <label className="block text-[11px] text-slate-300 font-semibold mb-1">Starting Origin</label>
-              <select
-                value={originDestId}
-                onChange={(e) => setOriginDestId(e.target.value)}
-                className="w-full text-xs font-semibold px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white cursor-pointer"
-              >
-                {POPULAR_DESTINATIONS.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.name} ({d.state})
-                  </option>
-                ))}
-              </select>
+              <DestinationSearchInput
+                id="map-route-origin"
+                label="Starting Origin"
+                value={originName}
+                onChange={(val, coords) => {
+                  setOriginName(val);
+                  if (coords) setOriginCoord(coords);
+                }}
+                onSelectResolved={(item) => {
+                  setOriginName(item.name);
+                  setOriginCoord(item.coordinates);
+                }}
+                placeholder="Origin city (e.g. Mumbai, Delhi)..."
+                isDarkMode={true}
+                showPopularChips={true}
+                showInlineChips={false}
+                iconColor="text-emerald-400"
+              />
             </div>
 
             <div>
-              <label className="block text-[11px] text-slate-300 font-semibold mb-1">Destination</label>
-              <select
-                value={targetDestId}
-                onChange={(e) => setTargetDestId(e.target.value)}
-                className="w-full text-xs font-semibold px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white cursor-pointer"
-              >
-                {POPULAR_DESTINATIONS.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.name} ({d.state})
-                  </option>
-                ))}
-              </select>
+              <DestinationSearchInput
+                id="map-route-destination"
+                label="Destination"
+                value={targetName}
+                onChange={(val, coords) => {
+                  setTargetName(val);
+                  if (coords) setTargetCoord(coords);
+                }}
+                onSelectResolved={(item) => {
+                  setTargetName(item.name);
+                  setTargetCoord(item.coordinates);
+                }}
+                placeholder="Destination city (e.g. Goa, Paris)..."
+                isDarkMode={true}
+                showPopularChips={true}
+                showInlineChips={false}
+                iconColor="text-amber-400"
+              />
             </div>
 
             <div>
@@ -471,7 +641,7 @@ export const MapView: React.FC<MapViewProps> = ({
             <div className="p-3 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-between text-xs text-white">
               <div className="flex items-center gap-2">
                 <span className="font-bold text-amber-300">Route Summary:</span>
-                <span>{originDest?.name} ➔ {targetDest?.name}</span>
+                <span>{originName} ➔ {targetName}</span>
               </div>
               <div className="flex items-center gap-4">
                 <span className="font-bold flex items-center gap-1 text-emerald-400">
@@ -503,46 +673,44 @@ export const MapView: React.FC<MapViewProps> = ({
         {hasValidKey ? (
           <APIProvider apiKey={API_KEY} version="weekly">
             <Map
-              defaultCenter={{ lat: 20.5937, lng: 78.9629 }}
-              defaultZoom={5}
+              center={mapCenter}
+              defaultCenter={mapCenter}
+              zoom={11}
+              defaultZoom={11}
               mapId="DEMO_MAP_ID"
               internalUsageAttributionIds={['gmp_mcp_codeassist_v1_aistudio']}
               style={{ width: '100%', height: '100%' }}
             >
-              {/* Render Destinations Markers */}
-              {(selectedCategory === 'all' || selectedCategory === 'destinations') &&
-                filteredDestinations.map((dest) => (
-                  <InteractiveMarkerItem
-                    key={dest.id}
-                    item={dest}
-                    type="destination"
-                    isSelected={selectedItem?.id === dest.id}
-                    onSelect={() => setSelectedItem({ id: dest.id, type: 'destination' })}
-                    onClose={() => setSelectedItem(null)}
-                    onPlanTrip={onSelectDestination}
-                    onOpenDetails={() => onOpenDestinationModal && onOpenDestinationModal(dest)}
-                  />
-                ))}
-
-              {/* Render Hotels Markers */}
-              {(selectedCategory === 'all' || selectedCategory === 'hotels') &&
-                FEATURED_HOTELS.map((hotel) => (
-                  <InteractiveMarkerItem
-                    key={hotel.id}
-                    item={hotel}
-                    type="hotel"
-                    isSelected={selectedItem?.id === hotel.id}
-                    onSelect={() => setSelectedItem({ id: hotel.id, type: 'hotel' })}
-                    onClose={() => setSelectedItem(null)}
-                    onPlanTrip={onSelectDestination}
-                  />
-                ))}
+              {/* Render Dynamic Leaflet/Google Map Markers */}
+              {dynamicMarkers.map((marker) => (
+                <InteractiveMarkerItem
+                  key={marker.id}
+                  item={{
+                    id: marker.id,
+                    name: marker.name,
+                    coordinates: marker.position,
+                    state: marker.subtitle,
+                    country: '',
+                    rating: marker.rating || 4.7,
+                    tagline: marker.subtitle,
+                    heroImage: marker.image,
+                    avgDailyCostINR: marker.price || 2500,
+                    popularCategories: [],
+                    isCurated: true
+                  } as unknown as Destination}
+                  type={marker.type === 'hotel' ? 'hotel' : 'destination'}
+                  isSelected={selectedItem?.id === marker.id}
+                  onSelect={() => setSelectedItem({ id: marker.id, type: marker.type === 'hotel' ? 'hotel' : 'destination' })}
+                  onClose={() => setSelectedItem(null)}
+                  onPlanTrip={onSelectDestination}
+                />
+              ))}
 
               {/* Route Calculator live polylines rendering */}
-              {routeModeActive && originDest && targetDest && (
+              {routeModeActive && originCoord && targetCoord && (
                 <RouteCalculator
-                  origin={originDest.coordinates}
-                  destination={targetDest.coordinates}
+                  origin={originCoord}
+                  destination={targetCoord}
                   travelMode={travelMode}
                   onRouteComputed={(info) => setRouteInfo(info)}
                 />
@@ -551,14 +719,14 @@ export const MapView: React.FC<MapViewProps> = ({
           </APIProvider>
         ) : (
           <OpenStreetMapLeaflet
-            center={{ lat: 20.5937, lng: 78.9629 }}
-            zoom={5}
+            center={mapCenter}
+            zoom={11}
             markers={leafletMarkers}
             routeLine={
-              routeModeActive && originDest && targetDest
+              routeModeActive && originCoord && targetCoord
                 ? {
-                    origin: originDest.coordinates,
-                    destination: targetDest.coordinates,
+                    origin: originCoord,
+                    destination: targetCoord,
                   }
                 : null
             }

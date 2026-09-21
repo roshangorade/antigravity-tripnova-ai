@@ -109,7 +109,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
   };
 
-  const handleSignIn = (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
 
@@ -120,42 +120,40 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
     setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
-      const emailUser = signInEmail.split('@')[0] || 'roshan_g';
-      const user: UserProfile = {
-        id: 'USR' + Math.floor(100 + Math.random() * 900),
-        firstName: 'Roshan',
-        lastName: 'Gorade',
-        name: 'Roshan Gorade',
-        username: emailUser,
-        email: signInEmail,
-        phone: '+91 9876543210',
-        profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-        gender: 'Male',
-        dateOfBirth: '2005-08-15',
-        country: 'India',
-        state: 'Maharashtra',
-        city: 'Chhatrapati Sambhajinagar',
-        preferredLanguage: 'English',
-        currency: 'INR',
-        timeZone: 'Asia/Kolkata',
-        bio: 'Passionate traveler exploring India and the world.',
-        memberSince: '2026-01-10',
-        verified: true,
-        role: signInEmail.includes('admin') ? 'ADMIN' : 'USER',
-        visitedDestinationsCount: 14,
-        totalKmTraveled: 18450,
-        badges: ['Himalayan Explorer', 'Beach Nomad', 'Foodie Pioneer']
-      };
-      onLoginSuccess(user);
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: signInEmail.trim(),
+          password: signInPassword
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.message || 'Invalid email or password. Please try again.');
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.token) {
+        localStorage.setItem('tripnova_token', data.token);
+      }
+
+      onLoginSuccess(data.user);
       setSuccessMessage('Welcome back! Successfully logged in.');
       setTimeout(() => {
         setSuccessMessage(null);
         onClose();
       }, 1000);
-    }, 700);
+    } catch (err) {
+      console.error('Sign in error:', err);
+      setErrorMessage('Unable to connect to authentication server. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -189,10 +187,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName: signUpFirstName,
-          lastName: signUpLastName,
-          username: signUpUsername,
-          email: signUpEmail,
+          firstName: signUpFirstName.trim(),
+          lastName: signUpLastName.trim(),
+          username: signUpUsername.trim(),
+          email: signUpEmail.trim(),
+          password: signUpPassword,
           phone: signUpPhone,
           role: signUpRole,
           adminKey: signUpRole === 'ADMIN' ? adminKey.trim() : undefined,
@@ -208,36 +207,40 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         return;
       }
 
+      if (data.token) {
+        localStorage.setItem('tripnova_token', data.token);
+      }
+
       const serverUser = data.user;
       const newUser: UserProfile = {
         id: serverUser.id || ('USR' + Math.floor(100 + Math.random() * 900)),
-        firstName: signUpFirstName,
-        lastName: signUpLastName || 'Gorade',
+        firstName: serverUser.firstName || signUpFirstName,
+        lastName: serverUser.lastName || signUpLastName || 'Gorade',
         name: serverUser.name || `${signUpFirstName} ${signUpLastName}`.trim() || signUpFirstName,
-        username: signUpUsername || signUpFirstName.toLowerCase() + '_g',
-        email: signUpEmail,
-        phone: signUpPhone || '+91 9876543210',
-        profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-        gender: 'Male',
-        dateOfBirth: '2005-08-15',
-        country: 'India',
-        state: 'Maharashtra',
-        city: city || 'Chhatrapati Sambhajinagar',
-        preferredLanguage: 'English',
-        currency: 'INR',
-        timeZone: 'Asia/Kolkata',
-        bio: signUpRole === 'ADMIN' ? 'Administrator profile verified with server key.' : 'Passionate traveler exploring India and the world.',
-        memberSince: new Date().toISOString().split('T')[0],
+        username: serverUser.username || signUpUsername || signUpFirstName.toLowerCase() + '_g',
+        email: serverUser.email || signUpEmail,
+        phone: serverUser.phone || signUpPhone || '+91 9876543210',
+        profileImage: serverUser.profileImage || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        avatar: serverUser.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        gender: serverUser.gender || 'Male',
+        dateOfBirth: serverUser.dateOfBirth || '2005-08-15',
+        country: serverUser.country || 'India',
+        state: serverUser.state || 'Maharashtra',
+        city: serverUser.city || city || 'Chhatrapati Sambhajinagar',
+        preferredLanguage: serverUser.preferredLanguage || 'English',
+        currency: serverUser.currency || 'INR',
+        timeZone: serverUser.timeZone || 'Asia/Kolkata',
+        bio: serverUser.bio || (serverUser.role === 'ADMIN' ? 'Administrator profile verified with server key.' : 'Passionate traveler exploring India and the world.'),
+        memberSince: serverUser.memberSince || new Date().toISOString().split('T')[0],
         verified: true,
-        role: signUpRole,
-        visitedDestinationsCount: signUpRole === 'ADMIN' ? 24 : 1,
-        totalKmTraveled: signUpRole === 'ADMIN' ? 24000 : 500,
-        badges: signUpRole === 'ADMIN' ? ['System Admin', 'Verified Executive'] : ['New Explorer']
+        role: serverUser.role,
+        visitedDestinationsCount: serverUser.visitedDestinationsCount || (serverUser.role === 'ADMIN' ? 24 : 1),
+        totalKmTraveled: serverUser.totalKmTraveled || (serverUser.role === 'ADMIN' ? 24000 : 500),
+        badges: serverUser.badges || (serverUser.role === 'ADMIN' ? ['System Admin', 'Verified Executive'] : ['New Explorer'])
       };
 
       onLoginSuccess(newUser);
-      setSuccessMessage(signUpRole === 'ADMIN' ? 'Administrator account verified & created successfully!' : 'Account created successfully! Welcome to RoamMind.');
+      setSuccessMessage(signUpRole === 'ADMIN' ? 'Administrator account verified & created successfully!' : 'Account created successfully! Welcome to TripNova.');
       setTimeout(() => {
         setSuccessMessage(null);
         onClose();

@@ -21,9 +21,10 @@ import { LocalIntelligenceSection } from './components/LocalIntelligenceSection'
 import { AIFoodDiscovery } from './components/AIFoodDiscovery';
 import { SmartRouteRecommendation } from './components/SmartRouteRecommendation';
 import { FeedbackForm } from './components/FeedbackForm';
-import { Destination, TravelItinerary, BudgetTier, TravelStyle, UserProfile } from './types';
+import { SearchDiagnosticAudit } from './components/SearchDiagnosticAudit';
+import { Destination, TravelItinerary, BudgetTier, TravelStyle, UserProfile, CanonicalDestination } from './types';
 import { POPULAR_DESTINATIONS, MOCK_USER_PROFILE } from './data/travelData';
-import { Heart, X } from 'lucide-react';
+import { Heart, X, Activity } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState(() => {
@@ -101,17 +102,118 @@ export default function App() {
   // Selected destination modal
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
 
+  // Global Canonical Destination State
+  const [currentDestination, setCurrentDestination] = useState<CanonicalDestination | null>({
+    id: 'dest_nashik',
+    name: 'Nashik',
+    displayName: 'Nashik, Maharashtra, India',
+    city: 'Nashik',
+    state: 'Maharashtra',
+    country: 'India',
+    latitude: 19.9975,
+    longitude: 73.7898,
+    placeId: null,
+    source: 'dataset',
+    isCurated: true,
+    avgDailyCostINR: 2500,
+    heroImage: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80',
+    tagline: 'Wine Capital & Sacred Godavari Heritage'
+  });
+
+  // Diagnostic Audit Modal State
+  const [searchAuditOpen, setSearchAuditOpen] = useState(false);
+
   // Auth & Profile state
-  const [currentUser, setCurrentUser] = useState<UserProfile | null>(MOCK_USER_PROFILE);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [aboutUsOpen, setAboutUsOpen] = useState(false);
 
-  const toggleWishlist = (id: string) => {
-    if (wishlist.includes(id)) {
-      setWishlist(wishlist.filter(item => item !== id));
-    } else {
-      setWishlist([...wishlist, id]);
+  // Restore authenticated session from JWT token on mount
+  useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : null;
+    if (token) {
+      fetch('/api/auth/me', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.user) {
+            setCurrentUser(data.user);
+          } else {
+            localStorage.removeItem('tripnova_token');
+            setCurrentUser(null);
+          }
+        })
+        .catch(err => {
+          console.error('Session restore error:', err);
+        });
     }
+  }, []);
+
+  // Fetch persisted itineraries and wishlist on load or when currentUser changes
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : null;
+        // Fetch saved itineraries
+        const itinRes = await fetch('/api/itineraries', {
+          headers: token ? { Authorization: `Bearer ${token}` } : {}
+        });
+        const itinData = await itinRes.json();
+        if (itinData.success && Array.isArray(itinData.itineraries) && itinData.itineraries.length > 0) {
+          setSavedItineraries(itinData.itineraries);
+        }
+
+        // Fetch user favorites if authenticated
+        if (token) {
+          const favRes = await fetch('/api/favorites', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          const favData = await favRes.json();
+          if (favData.success && Array.isArray(favData.favorites)) {
+            const ids = favData.favorites.map((f: any) => f.itemId);
+            setWishlist(prev => Array.from(new Set([...prev, ...ids])));
+          }
+        }
+      } catch (err) {
+        console.error('Error loading initial itineraries/favorites:', err);
+      }
+    };
+    loadUserData();
+  }, [currentUser]);
+
+  const toggleWishlist = (id: string, itemType: string = 'destination') => {
+    const isPresent = wishlist.includes(id);
+    const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : null;
+
+    if (isPresent) {
+      setWishlist(prev => prev.filter(item => item !== id));
+      if (token) {
+        fetch(`/api/favorites/${encodeURIComponent(id)}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        }).catch(e => console.error('Failed to delete favorite:', e));
+      }
+    } else {
+      setWishlist(prev => [...prev, id]);
+      if (token) {
+        fetch('/api/favorites', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ itemId: id, itemType })
+        }).catch(e => console.error('Failed to add favorite:', e));
+      }
+    }
+  };
+
+  const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('tripnova_token');
+    }
+    setCurrentUser(null);
   };
 
   const handleGenerateTripFromHero = async (query: {
@@ -119,13 +221,21 @@ export default function App() {
     destination: string;
     durationDays: number;
     travelersCount: number;
-    budgetTier: BudgetTier;
+    budget: number;
+    budgetTier?: BudgetTier;
     travelStyle: TravelStyle;
     interests: string[];
     transportMode: string;
   }) => {
     setActiveTab('ai-planner');
     try {
+      // Resolve canonical destination
+      const resResolv = await fetch(`/api/destinations/resolve?q=${encodeURIComponent(query.destination)}`);
+      const dataResolv = await resResolv.json();
+      if (dataResolv.success && dataResolv.destination) {
+        setCurrentDestination(dataResolv.destination);
+      }
+
       const res = await fetch('/api/planner/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -134,6 +244,17 @@ export default function App() {
       const data = await res.json();
       if (data.success && data.itinerary) {
         setSavedItineraries(prev => [data.itinerary, ...prev]);
+
+        // Persist to backend database
+        const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : null;
+        fetch('/api/itineraries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify(data.itinerary)
+        }).catch(e => console.error('Failed to persist generated itinerary:', e));
       }
     } catch (e) {
       console.error(e);
@@ -172,13 +293,23 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handlePlanDestinationDirect = (destName: string) => {
+  const handlePlanDestinationDirect = async (destName: string) => {
+    try {
+      const resResolv = await fetch(`/api/destinations/resolve?q=${encodeURIComponent(destName)}`);
+      const dataResolv = await resResolv.json();
+      if (dataResolv.success && dataResolv.destination) {
+        setCurrentDestination(dataResolv.destination);
+      }
+    } catch (e) {
+      // Continue
+    }
+
     handleGenerateTripFromHero({
       origin: 'Mumbai',
       destination: destName,
       durationDays: 4,
       travelersCount: 2,
-      budgetTier: 'moderate',
+      budget: 16000,
       travelStyle: 'couple',
       interests: ['Culture', 'Food', 'Scenery'],
       transportMode: 'Flight'
@@ -231,7 +362,11 @@ export default function App() {
               <SmartRouteRecommendation />
             </div>
 
-            <WeatherWidget isDarkMode={isDarkMode} />
+            <WeatherWidget 
+              isDarkMode={isDarkMode} 
+              currentDestination={currentDestination}
+              onDestinationChange={setCurrentDestination}
+            />
             
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
               <FeedbackForm />
@@ -244,17 +379,30 @@ export default function App() {
             isDarkMode={isDarkMode}
             onSelectDestination={handlePlanDestinationDirect}
             onOpenDestinationModal={(dest) => setSelectedDestination(dest)}
+            currentDestination={currentDestination}
+            onDestinationChange={setCurrentDestination}
           />
         )}
 
         {activeTab === 'ai-planner' && (
           <AIPlannerChat
             isDarkMode={isDarkMode}
+            currentDestination={currentDestination}
+            onDestinationChange={setCurrentDestination}
             savedItineraries={savedItineraries}
             onSaveItinerary={(itinerary) => {
               if (!savedItineraries.some(i => i.id === itinerary.id)) {
                 setSavedItineraries([itinerary, ...savedItineraries]);
               }
+              const token = typeof window !== 'undefined' ? localStorage.getItem('tripnova_token') : null;
+              fetch('/api/itineraries', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  ...(token ? { Authorization: `Bearer ${token}` } : {})
+                },
+                body: JSON.stringify(itinerary)
+              }).catch(e => console.error('Failed to persist itinerary:', e));
             }}
           />
         )}
@@ -271,6 +419,8 @@ export default function App() {
             isDarkMode={isDarkMode}
             wishlist={wishlist}
             onToggleWishlist={toggleWishlist}
+            currentDestination={currentDestination}
+            onDestinationChange={setCurrentDestination}
           />
         )}
 
@@ -285,7 +435,11 @@ export default function App() {
         )}
 
         {activeTab === 'food' && (
-          <FoodSection isDarkMode={isDarkMode} />
+          <FoodSection 
+            isDarkMode={isDarkMode}
+            currentDestination={currentDestination}
+            onDestinationChange={setCurrentDestination}
+          />
         )}
 
         {activeTab === 'transport' && (
@@ -299,23 +453,31 @@ export default function App() {
         )}
 
         {activeTab === 'weather' && (
-          <WeatherWidget isDarkMode={isDarkMode} />
+          <WeatherWidget 
+            isDarkMode={isDarkMode}
+            currentDestination={currentDestination}
+            onDestinationChange={setCurrentDestination}
+          />
         )}
 
         {activeTab === 'dashboard' && (
           <UserDashboard
             isDarkMode={isDarkMode}
             savedItineraries={savedItineraries}
-            onOpenItinerary={(itinerary) => setActiveTab('ai-planner')}
+            onOpenItinerary={(_itinerary) => setActiveTab('ai-planner')}
             currentUser={currentUser}
             onUpdateProfile={(updated) => setCurrentUser(updated)}
-            onLogout={() => setCurrentUser(null)}
+            onLogout={handleLogout}
             onOpenAuthModal={() => setAuthModalOpen(true)}
           />
         )}
 
         {activeTab === 'admin' && (
-          <AdminDashboard isDarkMode={isDarkMode} />
+          <AdminDashboard
+            isDarkMode={isDarkMode}
+            currentUser={currentUser}
+            onOpenAuthModal={() => setAuthModalOpen(true)}
+          />
         )}
 
         {activeTab === 'careers' && (
@@ -326,6 +488,28 @@ export default function App() {
           />
         )}
       </main>
+
+      {/* Floating Search Diagnostic Audit Launcher */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <button
+          type="button"
+          onClick={() => setSearchAuditOpen(true)}
+          className="px-4 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold text-xs shadow-xl shadow-indigo-600/30 flex items-center gap-2 border border-indigo-400/40 cursor-pointer transition-all hover:scale-105"
+          title="Open Universal Search Diagnostic Audit"
+        >
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          <Activity className="w-3.5 h-3.5" />
+          <span>Live Search Audit</span>
+        </button>
+      </div>
+
+      {/* Search Diagnostic Audit Modal */}
+      <SearchDiagnosticAudit
+        isOpen={searchAuditOpen}
+        onClose={() => setSearchAuditOpen(false)}
+        currentDestination={currentDestination}
+        isDarkMode={isDarkMode}
+      />
 
       {/* Destination Modal Guide */}
       <DestinationModal
@@ -402,7 +586,7 @@ export default function App() {
         isDarkMode={isDarkMode}
         currentUser={currentUser}
         onLoginSuccess={(user) => setCurrentUser(user)}
-        onLogout={() => setCurrentUser(null)}
+        onLogout={handleLogout}
       />
 
       {/* About Us Info Modal */}

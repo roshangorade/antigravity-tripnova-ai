@@ -1,0 +1,2731 @@
+[
+  {
+    "id": "dest_nashik",
+    "name": "Nashik",
+    "displayName": "Nashik, Maharashtra, India",
+    "city": "Nashik",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 19.9975,
+    "longitude": 73.7898,
+    "alternateNames": [
+      "Nasik",
+      "Nashik Road",
+      "Panchavati"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Wine capital of India, vineyards & sacred Godavari river ghats",
+    "heroImage": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Heritage",
+      "Vineyards",
+      "Spiritual",
+      "Nature"
+    ]
+  },
+  {
+    "id": "dest_chhatrapati_sambhajinagar",
+    "name": "Chhatrapati Sambhajinagar",
+    "displayName": "Chhatrapati Sambhajinagar (Aurangabad), Maharashtra, India",
+    "city": "Chhatrapati Sambhajinagar",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 19.8762,
+    "longitude": 75.3433,
+    "alternateNames": [
+      "Aurangabad",
+      "Sambhajinagar",
+      "Chhatrapati Sambhaji Nagar",
+      "Sambhaji Nagar",
+      "Aurangabad, Maharashtra"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Gateway to UNESCO Ajanta & Ellora caves, Bibi Ka Maqbara & Daulatabad Fort",
+    "heroImage": "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Heritage",
+      "UNESCO Sites",
+      "History",
+      "Culture"
+    ]
+  },
+  {
+    "id": "dest_pune",
+    "name": "Pune",
+    "displayName": "Pune, Maharashtra, India",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 18.5204,
+    "longitude": 73.8567,
+    "alternateNames": [
+      "Poona",
+      "Punyagari"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Cultural capital of Maharashtra, Maratha forts & bustling cafes",
+    "heroImage": "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Culture",
+      "Nightlife",
+      "Food",
+      "Forts"
+    ]
+  },
+  {
+    "id": "dest_kolhapur",
+    "name": "Kolhapur",
+    "displayName": "Kolhapur, Maharashtra, India",
+    "city": "Kolhapur",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 16.705,
+    "longitude": 74.2433,
+    "alternateNames": [
+      "Kolhapur City",
+      "Karvir"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Historic Mahalaxmi temple, Rankala Lake, royal palaces & authentic spicy culinary trails",
+    "heroImage": "https://images.unsplash.com/photo-1566837945700-30057527ade0?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Temples",
+      "Heritage",
+      "Food",
+      "Culture"
+    ]
+  },
+  {
+    "id": "dest_mahabaleshwar",
+    "name": "Mahabaleshwar",
+    "displayName": "Mahabaleshwar, Maharashtra, India",
+    "city": "Mahabaleshwar",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 17.9243,
+    "longitude": 73.6576,
+    "alternateNames": [
+      "Mahableshwar",
+      "Mahabaleshwar Hill Station"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Scenic Western Ghats hill station, strawberry farms & mist-covered viewpoints",
+    "heroImage": "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Hill Station",
+      "Nature",
+      "Romantic",
+      "Viewpoints"
+    ]
+  },
+  {
+    "id": "dest_panchgani",
+    "name": "Panchgani",
+    "displayName": "Panchgani, Maharashtra, India",
+    "city": "Panchgani",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 17.9237,
+    "longitude": 73.8007,
+    "alternateNames": [
+      "Panchgani Hill Station",
+      "Table Land"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Table Land volcanic plateau, strawberry orchards & colonial boarding schools",
+    "heroImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Hill Station",
+      "Nature",
+      "Adventure",
+      "Relaxation"
+    ]
+  },
+  {
+    "id": "dest_lonavala",
+    "name": "Lonavala",
+    "displayName": "Lonavala, Maharashtra, India",
+    "city": "Lonavala",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 18.7557,
+    "longitude": 73.4091,
+    "alternateNames": [
+      "Lonavla",
+      "Khandala",
+      "Lonavala-Khandala"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Misty Sahyadri valleys, Tiger Point waterfalls, Karla caves & iconic chikki sweets",
+    "heroImage": "https://images.unsplash.com/photo-1518457607834-6e8d80c183c5?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Monsoon Getaway",
+      "Waterfalls",
+      "Trekking",
+      "Caves"
+    ]
+  },
+  {
+    "id": "dest_alibaug",
+    "name": "Alibaug",
+    "displayName": "Alibaug, Maharashtra, India",
+    "city": "Alibaug",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 18.6414,
+    "longitude": 72.8722,
+    "alternateNames": [
+      "Alibag",
+      "Kolaba"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Coastal fortress beaches, sea water sports & fresh Konkan seafood",
+    "heroImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Beaches",
+      "Forts",
+      "Seafood",
+      "Weekend Getaway"
+    ]
+  },
+  {
+    "id": "dest_nagpur",
+    "name": "Nagpur",
+    "displayName": "Nagpur, Maharashtra, India",
+    "city": "Nagpur",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 21.1458,
+    "longitude": 79.0882,
+    "alternateNames": [
+      "Orange City",
+      "Zero Mile City"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Tiger Capital of India, juicy orange orchards & Zero Mile Stone marker",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Wildlife",
+      "Tiger Reserves",
+      "Food",
+      "Culture"
+    ]
+  },
+  {
+    "id": "dest_nanded",
+    "name": "Nanded",
+    "displayName": "Nanded, Maharashtra, India",
+    "city": "Nanded",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 19.1383,
+    "longitude": 77.321,
+    "alternateNames": [
+      "Nanded Waghala",
+      "Hazur Sahib Nanded"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Sacred Takht Sachkhand Sri Hazur Abchalnagar Sahib Gurudwara on Godavari river",
+    "heroImage": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Pilgrimage",
+      "Spiritual",
+      "Historical",
+      "Riverfront"
+    ]
+  },
+  {
+    "id": "dest_mumbai",
+    "name": "Mumbai",
+    "displayName": "Mumbai, Maharashtra, India",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 19.076,
+    "longitude": 72.8777,
+    "alternateNames": [
+      "Bombay",
+      "Maximum City",
+      "BOM"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Gateway of India, Marine Drive Queen’s Necklace, Bollywood & street gastronomy",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Metropolis",
+      "Nightlife",
+      "Beaches",
+      "Architecture"
+    ]
+  },
+  {
+    "id": "dest_matheran",
+    "name": "Matheran",
+    "displayName": "Matheran, Maharashtra, India",
+    "city": "Matheran",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 18.9866,
+    "longitude": 73.2678,
+    "alternateNames": [
+      "Matheran Hill Station",
+      "Charlotte Lake"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Asia’s only automobile-free eco hill station & heritage toy train",
+    "heroImage": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Eco Tourism",
+      "Hill Station",
+      "Trekking",
+      "Nature"
+    ]
+  },
+  {
+    "id": "dest_shirdi",
+    "name": "Shirdi",
+    "displayName": "Shirdi, Maharashtra, India",
+    "city": "Shirdi",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 19.7645,
+    "longitude": 74.4762,
+    "alternateNames": [
+      "Sai Baba Shirdi",
+      "Sainagar"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "World-famous pilgrimage abode of revered saint Sri Sai Baba",
+    "heroImage": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Pilgrimage",
+      "Spiritual",
+      "Peace"
+    ]
+  },
+  {
+    "id": "dest_igatpuri",
+    "name": "Igatpuri",
+    "displayName": "Igatpuri, Maharashtra, India",
+    "city": "Igatpuri",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 19.6967,
+    "longitude": 73.5594,
+    "alternateNames": [
+      "Igatpuri Hill Station",
+      "Vipassana Igatpuri"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Vipassana meditation center, cascading waterfalls & Kalsubai peak trails",
+    "heroImage": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Meditation",
+      "Monsoon",
+      "Trekking",
+      "Waterfalls"
+    ]
+  },
+  {
+    "id": "dest_delhi",
+    "name": "Delhi",
+    "displayName": "Delhi, India",
+    "city": "Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "latitude": 28.6139,
+    "longitude": 77.209,
+    "alternateNames": [
+      "New Delhi",
+      "National Capital Region",
+      "NCR",
+      "Dilli"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Historic Mughal monuments, vibrant bazaars, India Gate & culinary street gems",
+    "heroImage": "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "History",
+      "Heritage",
+      "Street Food",
+      "Culture"
+    ]
+  },
+  {
+    "id": "dest_bengaluru",
+    "name": "Bengaluru",
+    "displayName": "Bengaluru, Karnataka, India",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "country": "India",
+    "latitude": 12.9716,
+    "longitude": 77.5946,
+    "alternateNames": [
+      "Bangalore",
+      "Garden City",
+      "Silicon Valley of India",
+      "BLR"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Silicon Valley of India, lush green parks, craft microbreweries & tech hub",
+    "heroImage": "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Craft Beer",
+      "Parks",
+      "Tech Hub",
+      "Cafes"
+    ]
+  },
+  {
+    "id": "dest_hyderabad",
+    "name": "Hyderabad",
+    "displayName": "Hyderabad, Telangana, India",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "country": "India",
+    "latitude": 17.385,
+    "longitude": 78.4867,
+    "alternateNames": [
+      "City of Pearls",
+      "Cyberabad",
+      "HYD"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Charminar, world-famous Dum Biryani, Golconda Fort & Nizam heritage",
+    "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e47b3112?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Biryani",
+      "Heritage",
+      "Forts",
+      "Pearls"
+    ]
+  },
+  {
+    "id": "dest_varanasi",
+    "name": "Varanasi",
+    "displayName": "Varanasi, Uttar Pradesh, India",
+    "city": "Varanasi",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 25.3176,
+    "longitude": 82.9739,
+    "alternateNames": [
+      "Banaras",
+      "Benares",
+      "Kashi",
+      "VNS"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "World’s oldest living city, spiritual Ganga river ghats & evening Maha Aarti",
+    "heroImage": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Spiritual",
+      "Ghats",
+      "Ancient Heritage",
+      "Aarti"
+    ]
+  },
+  {
+    "id": "dest_darjeeling",
+    "name": "Darjeeling",
+    "displayName": "Darjeeling, West Bengal, India",
+    "city": "Darjeeling",
+    "state": "West Bengal",
+    "country": "India",
+    "latitude": 27.041,
+    "longitude": 88.2663,
+    "alternateNames": [
+      "Queen of Hills",
+      "Darjiling"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Queen of Hills, Tiger Hill Kanchenjunga sunrise & world-renowned orthodox tea gardens",
+    "heroImage": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Tea Estates",
+      "Himalayas",
+      "Toy Train",
+      "Sunrise"
+    ]
+  },
+  {
+    "id": "dest_rishikesh",
+    "name": "Rishikesh",
+    "displayName": "Rishikesh, Uttarakhand, India",
+    "city": "Rishikesh",
+    "state": "Uttarakhand",
+    "country": "India",
+    "latitude": 30.0869,
+    "longitude": 78.2676,
+    "alternateNames": [
+      "Yoga Capital",
+      "Laxman Jhula",
+      "Ram Jhula"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Yoga capital of the world, Ganga white water rafting, Beatles Ashram & serene cliff cafes",
+    "heroImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Yoga",
+      "Rafting",
+      "Spiritual",
+      "Adventure"
+    ]
+  },
+  {
+    "id": "dest_goa",
+    "name": "Goa",
+    "displayName": "Goa, India",
+    "city": "Panaji",
+    "state": "Goa",
+    "country": "India",
+    "latitude": 15.2993,
+    "longitude": 74.124,
+    "alternateNames": [
+      "North Goa",
+      "South Goa",
+      "Panjim",
+      "GOI"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Sun-kissed beaches, Portuguese colonial villas, water sports & vibrant nightlife",
+    "heroImage": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Beaches",
+      "Nightlife",
+      "Seafood",
+      "Water Sports"
+    ]
+  },
+  {
+    "id": "dest_jaipur",
+    "name": "Jaipur",
+    "displayName": "Jaipur, Rajasthan, India",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "latitude": 26.9124,
+    "longitude": 75.7873,
+    "alternateNames": [
+      "Pink City",
+      "Amber",
+      "Hawa Mahal",
+      "JAI"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Pink City of Rajasthan, majestic Amber Fort, Hawa Mahal & royal Rajput heritage",
+    "heroImage": "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Royal Palaces",
+      "Forts",
+      "Handicrafts",
+      "Heritage"
+    ]
+  },
+  {
+    "id": "dest_udaipur",
+    "name": "Udaipur",
+    "displayName": "Udaipur, Rajasthan, India",
+    "city": "Udaipur",
+    "state": "Rajasthan",
+    "country": "India",
+    "latitude": 24.5854,
+    "longitude": 73.7125,
+    "alternateNames": [
+      "City of Lakes",
+      "Lake City",
+      "UDR"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "City of Lakes, floating marble palaces on Lake Pichola & royal Mewar grandeur",
+    "heroImage": "https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Lakes",
+      "Romance",
+      "Palaces",
+      "Honeymoon"
+    ]
+  },
+  {
+    "id": "dest_manali",
+    "name": "Manali",
+    "displayName": "Manali, Himachal Pradesh, India",
+    "city": "Manali",
+    "state": "Himachal Pradesh",
+    "country": "India",
+    "latitude": 32.2432,
+    "longitude": 77.1892,
+    "alternateNames": [
+      "Old Manali",
+      "Kullu Manali",
+      "Solang Valley"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Snow-capped Himalayan peaks, Solang Valley adventures, Rohtang Pass & pinewood trails",
+    "heroImage": "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Snow",
+      "Trekking",
+      "Adventure",
+      "Hill Station"
+    ]
+  },
+  {
+    "id": "dest_dubai",
+    "name": "Dubai",
+    "displayName": "Dubai, United Arab Emirates",
+    "city": "Dubai",
+    "state": "Dubai",
+    "country": "United Arab Emirates",
+    "latitude": 25.0743,
+    "longitude": 55.1886,
+    "alternateNames": [
+      "DXB",
+      "Emirate of Dubai",
+      "United Arab Emirates"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Burj Khalifa, futuristic architecture, desert safaris & world luxury shopping",
+    "heroImage": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Luxury",
+      "Skyscrapers",
+      "Shopping",
+      "Desert Safaris"
+    ]
+  },
+  {
+    "id": "dest_paris",
+    "name": "Paris",
+    "displayName": "Paris, Île-de-France, France",
+    "city": "Paris",
+    "state": "Île-de-France",
+    "country": "France",
+    "latitude": 48.8566,
+    "longitude": 2.3522,
+    "alternateNames": [
+      "City of Light",
+      "Ville Lumière",
+      "CDG"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Eiffel Tower, world-class art museums, Seine cruises & haute gastronomy",
+    "heroImage": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Art",
+      "Romance",
+      "Architecture",
+      "Gastronomy"
+    ]
+  },
+  {
+    "id": "dest_tokyo",
+    "name": "Tokyo",
+    "displayName": "Tokyo, Japan",
+    "city": "Tokyo",
+    "state": "Tokyo",
+    "country": "Japan",
+    "latitude": 35.6762,
+    "longitude": 139.6503,
+    "alternateNames": [
+      "Tokio",
+      "Edo",
+      "NRT",
+      "HND"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Neon skyscrapers, historic Shinto shrines, Michelin dining & vibrant anime culture",
+    "heroImage": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Technology",
+      "Temples",
+      "Anime",
+      "Cuisine"
+    ]
+  },
+  {
+    "id": "dest_london",
+    "name": "London",
+    "displayName": "London, England, United Kingdom",
+    "city": "London",
+    "state": "England",
+    "country": "United Kingdom",
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "alternateNames": [
+      "Greater London",
+      "LHR"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Big Ben, River Thames, West End theatres & historic royal palaces",
+    "heroImage": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Royal Heritage",
+      "Theatres",
+      "Museums",
+      "History"
+    ]
+  },
+  {
+    "id": "dest_new_york",
+    "name": "New York",
+    "displayName": "New York, New York, United States",
+    "city": "New York",
+    "state": "New York",
+    "country": "United States",
+    "latitude": 40.7128,
+    "longitude": -74.006,
+    "alternateNames": [
+      "NYC",
+      "New York City",
+      "The Big Apple",
+      "Manhattan",
+      "JFK"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Times Square, Central Park, Broadway & world financial capital",
+    "heroImage": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Metropolis",
+      "Broadway",
+      "Culture",
+      "Museums"
+    ]
+  },
+  {
+    "id": "dest_singapore",
+    "name": "Singapore",
+    "displayName": "Singapore, Singapore",
+    "city": "Singapore",
+    "state": "Singapore",
+    "country": "Singapore",
+    "latitude": 1.3521,
+    "longitude": 103.8198,
+    "alternateNames": [
+      "Lion City",
+      "SIN"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Marina Bay Sands, Gardens by the Bay, Sentosa Island & Michelin hawker centers",
+    "heroImage": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Modern City",
+      "Gardens",
+      "Food",
+      "Family"
+    ]
+  },
+  {
+    "id": "dest_bangkok",
+    "name": "Bangkok",
+    "displayName": "Bangkok, Thailand",
+    "city": "Bangkok",
+    "state": "Bangkok",
+    "country": "Thailand",
+    "latitude": 13.7563,
+    "longitude": 100.5018,
+    "alternateNames": [
+      "Krung Thep",
+      "BKK"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Grand Palace, floating river markets, rooftop sky bars & street food haven",
+    "heroImage": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Street Food",
+      "Nightlife",
+      "Temples",
+      "Riverside"
+    ]
+  },
+  {
+    "id": "dest_bali",
+    "name": "Bali",
+    "displayName": "Bali, Indonesia",
+    "city": "Denpasar",
+    "state": "Bali",
+    "country": "Indonesia",
+    "latitude": -8.3405,
+    "longitude": 115.092,
+    "alternateNames": [
+      "Island of the Gods",
+      "Ubud",
+      "Seminyak",
+      "Canggu"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Tropical surf beaches, lush rice terraces, wellness retreats & sacred Hindu sea temples",
+    "heroImage": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Beaches",
+      "Wellness",
+      "Surfing",
+      "Temples"
+    ]
+  },
+  {
+    "id": "dest_leh_ladakh",
+    "name": "Leh Ladakh",
+    "displayName": "Leh Ladakh, Ladakh, India",
+    "city": "Leh",
+    "state": "Ladakh",
+    "country": "India",
+    "latitude": 34.1526,
+    "longitude": 77.5771,
+    "alternateNames": [
+      "Ladakh",
+      "Leh",
+      "Pangong Tso",
+      "Nubra Valley"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Land of High Passes, azure high-altitude lakes & ancient Buddhist gompas",
+    "heroImage": "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Himalayas",
+      "Adventure",
+      "Motorbiking",
+      "Monasteries"
+    ]
+  },
+  {
+    "id": "dest_munnar",
+    "name": "Munnar",
+    "displayName": "Munnar, Kerala, India",
+    "city": "Munnar",
+    "state": "Kerala",
+    "country": "India",
+    "latitude": 10.0889,
+    "longitude": 77.0595,
+    "alternateNames": [
+      "Munnar Hills",
+      "Idukki"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Endless rolling emerald tea estates, Anamudi peak & mist-covered valleys",
+    "heroImage": "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Tea Plantations",
+      "Hill Station",
+      "Nature",
+      "Romantic"
+    ]
+  },
+  {
+    "id": "dest_coorg",
+    "name": "Coorg",
+    "displayName": "Coorg (Kodagu), Karnataka, India",
+    "city": "Madikeri",
+    "state": "Karnataka",
+    "country": "India",
+    "latitude": 12.3375,
+    "longitude": 75.8069,
+    "alternateNames": [
+      "Kodagu",
+      "Madikeri",
+      "Scotland of India"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Scotland of India, aromatic coffee plantations & cascading Abbey Falls",
+    "heroImage": "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Coffee Estates",
+      "Waterfalls",
+      "Nature",
+      "Homestays"
+    ]
+  },
+  {
+    "id": "dest_mysore",
+    "name": "Mysore",
+    "displayName": "Mysore (Mysuru), Karnataka, India",
+    "city": "Mysore",
+    "state": "Karnataka",
+    "country": "India",
+    "latitude": 12.2958,
+    "longitude": 76.6394,
+    "alternateNames": [
+      "Mysuru",
+      "City of Palaces"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Illuminated Mysore Palace, silk heritage, Chamundi Hill & sandalwood traditions",
+    "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e47b3112?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Palaces",
+      "Heritage",
+      "Culture",
+      "Silk"
+    ]
+  },
+  {
+    "id": "dest_hampi",
+    "name": "Hampi",
+    "displayName": "Hampi, Karnataka, India",
+    "city": "Hampi",
+    "state": "Karnataka",
+    "country": "India",
+    "latitude": 15.335,
+    "longitude": 76.46,
+    "alternateNames": [
+      "Vijayanagara",
+      "Hampi Ruins"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "UNESCO Vijayanagara empire ruins, stone chariot & surreal boulder landscapes",
+    "heroImage": "https://images.unsplash.com/photo-1600100397608-f010e47b3112?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "UNESCO Sites",
+      "Ruins",
+      "History",
+      "Bouldering"
+    ]
+  },
+  {
+    "id": "dest_ooty",
+    "name": "Ooty",
+    "displayName": "Ooty (Udhagamandalam), Tamil Nadu, India",
+    "city": "Ooty",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 11.4102,
+    "longitude": 76.695,
+    "alternateNames": [
+      "Udhagamandalam",
+      "Ootacamund",
+      "Nilgiris"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Nilgiri blue mountains, botanical gardens, lake boating & historic Mountain Railway",
+    "heroImage": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Hill Station",
+      "Toy Train",
+      "Botanical Gardens",
+      "Lakes"
+    ]
+  },
+  {
+    "id": "dest_kodaikanal",
+    "name": "Kodaikanal",
+    "displayName": "Kodaikanal, Tamil Nadu, India",
+    "city": "Kodaikanal",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 10.2381,
+    "longitude": 77.4892,
+    "alternateNames": [
+      "Princess of Hill Stations",
+      "Kodai"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Princess of Hill Stations, star-shaped Kodai lake, Pillar Rocks & pine forests",
+    "heroImage": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Lakes",
+      "Pine Forests",
+      "Hill Station",
+      "Nature"
+    ]
+  },
+  {
+    "id": "dest_shimla",
+    "name": "Shimla",
+    "displayName": "Shimla, Himachal Pradesh, India",
+    "city": "Shimla",
+    "state": "Himachal Pradesh",
+    "country": "India",
+    "latitude": 31.1048,
+    "longitude": 77.1734,
+    "alternateNames": [
+      "Simla",
+      "Mall Road Shimla"
+    ],
+    "source": "dataset",
+    "isCurated": true,
+    "tagline": "Colonial Ridge walks, Mall Road heritage, Jakhu Temple & Himalayan views",
+    "heroImage": "https://images.unsplash.com/photo-1562920616-5e0427329977?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Colonial Architecture",
+      "Mall Road",
+      "Hill Station"
+    ]
+  },
+  {
+    "id": "dest_durgapur",
+    "name": "Durgapur",
+    "displayName": "Durgapur, West Bengal, India",
+    "city": "Durgapur",
+    "state": "West Bengal",
+    "country": "India",
+    "latitude": 23.5204,
+    "longitude": 87.3119,
+    "alternateNames": [
+      "Durgapur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in West Bengal with 149 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_bareilly",
+    "name": "Bareilly",
+    "displayName": "Bareilly, Uttar Pradesh, India",
+    "city": "Bareilly",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 28.367,
+    "longitude": 79.4304,
+    "alternateNames": [
+      "Bareilly"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttar Pradesh with 316 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_mangalore",
+    "name": "Mangalore",
+    "displayName": "Mangalore, Karnataka, India",
+    "city": "Mangalore",
+    "state": "Karnataka",
+    "country": "India",
+    "latitude": 12.9141,
+    "longitude": 74.856,
+    "alternateNames": [
+      "Mangalore"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Karnataka with 241 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_puducherry",
+    "name": "Puducherry",
+    "displayName": "Puducherry, Puducherry, India",
+    "city": "Puducherry",
+    "state": "Puducherry",
+    "country": "India",
+    "latitude": 11.9416,
+    "longitude": 79.8083,
+    "alternateNames": [
+      "Puducherry"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Puducherry with 181 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_ajmer",
+    "name": "Ajmer",
+    "displayName": "Ajmer, Rajasthan, India",
+    "city": "Ajmer",
+    "state": "Rajasthan",
+    "country": "India",
+    "latitude": 26.4499,
+    "longitude": 74.6399,
+    "alternateNames": [
+      "Ajmer"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Rajasthan with 218 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_kolkata",
+    "name": "Kolkata",
+    "displayName": "Kolkata, West Bengal, India",
+    "city": "Kolkata",
+    "state": "West Bengal",
+    "country": "India",
+    "latitude": 22.5726,
+    "longitude": 88.3639,
+    "alternateNames": [
+      "Kolkata"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in West Bengal with 978 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_gaya",
+    "name": "Gaya",
+    "displayName": "Gaya, Bihar, India",
+    "city": "Gaya",
+    "state": "Bihar",
+    "country": "India",
+    "latitude": 24.7914,
+    "longitude": 85.0002,
+    "alternateNames": [
+      "Gaya"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Bihar with 141 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_vadodara",
+    "name": "Vadodara",
+    "displayName": "Vadodara, Gujarat, India",
+    "city": "Vadodara",
+    "state": "Gujarat",
+    "country": "India",
+    "latitude": 22.3072,
+    "longitude": 73.1812,
+    "alternateNames": [
+      "Vadodara"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Gujarat with 582 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_patna",
+    "name": "Patna",
+    "displayName": "Patna, Bihar, India",
+    "city": "Patna",
+    "state": "Bihar",
+    "country": "India",
+    "latitude": 25.5941,
+    "longitude": 85.1376,
+    "alternateNames": [
+      "Patna"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Bihar with 522 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_kota",
+    "name": "Kota",
+    "displayName": "Kota, Rajasthan, India",
+    "city": "Kota",
+    "state": "Rajasthan",
+    "country": "India",
+    "latitude": 25.2138,
+    "longitude": 75.8648,
+    "alternateNames": [
+      "Kota"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Rajasthan with 460 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_bhubaneswar",
+    "name": "Bhubaneswar",
+    "displayName": "Bhubaneswar, Odisha, India",
+    "city": "Bhubaneswar",
+    "state": "Odisha",
+    "country": "India",
+    "latitude": 20.2961,
+    "longitude": 85.8245,
+    "alternateNames": [
+      "Bhubaneswar"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Odisha with 310 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_cuttack",
+    "name": "Cuttack",
+    "displayName": "Cuttack, Odisha, India",
+    "city": "Cuttack",
+    "state": "Odisha",
+    "country": "India",
+    "latitude": 20.4625,
+    "longitude": 85.8828,
+    "alternateNames": [
+      "Cuttack"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Odisha with 195 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_vijayawada",
+    "name": "Vijayawada",
+    "displayName": "Vijayawada, Andhra Pradesh, India",
+    "city": "Vijayawada",
+    "state": "Andhra Pradesh",
+    "country": "India",
+    "latitude": 16.5062,
+    "longitude": 80.648,
+    "alternateNames": [
+      "Vijayawada"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Andhra Pradesh with 420 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_ludhiana",
+    "name": "Ludhiana",
+    "displayName": "Ludhiana, Punjab, India",
+    "city": "Ludhiana",
+    "state": "Punjab",
+    "country": "India",
+    "latitude": 30.901,
+    "longitude": 75.8573,
+    "alternateNames": [
+      "Ludhiana"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Punjab with 616 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_chennai",
+    "name": "Chennai",
+    "displayName": "Chennai, Tamil Nadu, India",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 13.0827,
+    "longitude": 80.2707,
+    "alternateNames": [
+      "Chennai"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Tamil Nadu with 614 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_gorakhpur",
+    "name": "Gorakhpur",
+    "displayName": "Gorakhpur, Uttar Pradesh, India",
+    "city": "Gorakhpur",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 26.7606,
+    "longitude": 83.3732,
+    "alternateNames": [
+      "Gorakhpur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttar Pradesh with 349 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_guwahati",
+    "name": "Guwahati",
+    "displayName": "Guwahati, Assam, India",
+    "city": "Guwahati",
+    "state": "Assam",
+    "country": "India",
+    "latitude": 26.1445,
+    "longitude": 91.7362,
+    "alternateNames": [
+      "Guwahati"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Assam with 525 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_meerut",
+    "name": "Meerut",
+    "displayName": "Meerut, Uttar Pradesh, India",
+    "city": "Meerut",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 28.9845,
+    "longitude": 77.7064,
+    "alternateNames": [
+      "Meerut"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttar Pradesh with 358 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_salem",
+    "name": "Salem",
+    "displayName": "Salem, Tamil Nadu, India",
+    "city": "Salem",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 11.6643,
+    "longitude": 78.146,
+    "alternateNames": [
+      "Salem"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Tamil Nadu with 168 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_lucknow",
+    "name": "Lucknow",
+    "displayName": "Lucknow, Uttar Pradesh, India",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 26.8467,
+    "longitude": 80.9462,
+    "alternateNames": [
+      "Lucknow"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttar Pradesh with 781 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jalandhar",
+    "name": "Jalandhar",
+    "displayName": "Jalandhar, Punjab, India",
+    "city": "Jalandhar",
+    "state": "Punjab",
+    "country": "India",
+    "latitude": 31.326,
+    "longitude": 75.5762,
+    "alternateNames": [
+      "Jalandhar"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Punjab with 489 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_surat",
+    "name": "Surat",
+    "displayName": "Surat, Gujarat, India",
+    "city": "Surat",
+    "state": "Gujarat",
+    "country": "India",
+    "latitude": 21.1702,
+    "longitude": 72.8311,
+    "alternateNames": [
+      "Surat"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Gujarat with 613 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jodhpur",
+    "name": "Jodhpur",
+    "displayName": "Jodhpur, Rajasthan, India",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "country": "India",
+    "latitude": 26.2389,
+    "longitude": 73.0243,
+    "alternateNames": [
+      "Jodhpur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Rajasthan with 415 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_dhanbad",
+    "name": "Dhanbad",
+    "displayName": "Dhanbad, Jharkhand, India",
+    "city": "Dhanbad",
+    "state": "Jharkhand",
+    "country": "India",
+    "latitude": 23.7957,
+    "longitude": 86.4304,
+    "alternateNames": [
+      "Dhanbad"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Jharkhand with 148 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_trichy",
+    "name": "Trichy",
+    "displayName": "Trichy, Tamil Nadu, India",
+    "city": "Trichy",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 10.7905,
+    "longitude": 78.7047,
+    "alternateNames": [
+      "Trichy"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Tamil Nadu with 167 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_ahmedabad",
+    "name": "Ahmedabad",
+    "displayName": "Ahmedabad, Gujarat, India",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "country": "India",
+    "latitude": 23.0225,
+    "longitude": 72.5714,
+    "alternateNames": [
+      "Ahmedabad"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Gujarat with 482 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_nellore",
+    "name": "Nellore",
+    "displayName": "Nellore, India, India",
+    "city": "Nellore",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Nellore"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 150 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_moradabad",
+    "name": "Moradabad",
+    "displayName": "Moradabad, India, India",
+    "city": "Moradabad",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Moradabad"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 177 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_coimbatore",
+    "name": "Coimbatore",
+    "displayName": "Coimbatore, Tamil Nadu, India",
+    "city": "Coimbatore",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 11.0168,
+    "longitude": 76.9558,
+    "alternateNames": [
+      "Coimbatore"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Tamil Nadu with 464 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_aligarh",
+    "name": "Aligarh",
+    "displayName": "Aligarh, India, India",
+    "city": "Aligarh",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Aligarh"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 156 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_kanpur",
+    "name": "Kanpur",
+    "displayName": "Kanpur, Uttar Pradesh, India",
+    "city": "Kanpur",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 26.4499,
+    "longitude": 80.3319,
+    "alternateNames": [
+      "Kanpur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttar Pradesh with 652 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_raipur",
+    "name": "Raipur",
+    "displayName": "Raipur, Chhattisgarh, India",
+    "city": "Raipur",
+    "state": "Chhattisgarh",
+    "country": "India",
+    "latitude": 21.2514,
+    "longitude": 81.6296,
+    "alternateNames": [
+      "Raipur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Chhattisgarh with 452 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_vellore",
+    "name": "Vellore",
+    "displayName": "Vellore, Tamil Nadu, India",
+    "city": "Vellore",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 12.9165,
+    "longitude": 79.1325,
+    "alternateNames": [
+      "Vellore"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Tamil Nadu with 86 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_indore",
+    "name": "Indore",
+    "displayName": "Indore, Madhya Pradesh, India",
+    "city": "Indore",
+    "state": "Madhya Pradesh",
+    "country": "India",
+    "latitude": 22.7196,
+    "longitude": 75.8577,
+    "alternateNames": [
+      "Indore"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Madhya Pradesh with 630 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_rajkot",
+    "name": "Rajkot",
+    "displayName": "Rajkot, India, India",
+    "city": "Rajkot",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Rajkot"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 291 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_dharamshala",
+    "name": "Dharamshala",
+    "displayName": "Dharamshala, India, India",
+    "city": "Dharamshala",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Dharamshala"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 40 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_bhopal",
+    "name": "Bhopal",
+    "displayName": "Bhopal, Madhya Pradesh, India",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "country": "India",
+    "latitude": 23.2599,
+    "longitude": 77.4126,
+    "alternateNames": [
+      "Bhopal"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Madhya Pradesh with 479 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_delhi_ncr",
+    "name": "Delhi NCR",
+    "displayName": "Delhi NCR, India, India",
+    "city": "Delhi NCR",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Delhi NCR"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 215 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_agra",
+    "name": "Agra",
+    "displayName": "Agra, Uttar Pradesh, India",
+    "city": "Agra",
+    "state": "Uttar Pradesh",
+    "country": "India",
+    "latitude": 27.1767,
+    "longitude": 78.0081,
+    "alternateNames": [
+      "Agra"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttar Pradesh with 400 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_siliguri",
+    "name": "Siliguri",
+    "displayName": "Siliguri, West Bengal, India",
+    "city": "Siliguri",
+    "state": "West Bengal",
+    "country": "India",
+    "latitude": 26.7271,
+    "longitude": 88.3953,
+    "alternateNames": [
+      "Siliguri"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in West Bengal with 312 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_chandigarh",
+    "name": "Chandigarh",
+    "displayName": "Chandigarh, Chandigarh, India",
+    "city": "Chandigarh",
+    "state": "Chandigarh",
+    "country": "India",
+    "latitude": 30.7333,
+    "longitude": 76.7794,
+    "alternateNames": [
+      "Chandigarh"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Chandigarh with 679 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jamshedpur",
+    "name": "Jamshedpur",
+    "displayName": "Jamshedpur, India, India",
+    "city": "Jamshedpur",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Jamshedpur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 316 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_warangal",
+    "name": "Warangal",
+    "displayName": "Warangal, India, India",
+    "city": "Warangal",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Warangal"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 156 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_allahabad",
+    "name": "Allahabad",
+    "displayName": "Allahabad, India, India",
+    "city": "Allahabad",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Allahabad"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 446 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_dehradun",
+    "name": "Dehradun",
+    "displayName": "Dehradun, Uttarakhand, India",
+    "city": "Dehradun",
+    "state": "Uttarakhand",
+    "country": "India",
+    "latitude": 30.3165,
+    "longitude": 78.0322,
+    "alternateNames": [
+      "Dehradun"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttarakhand with 530 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_ranchi",
+    "name": "Ranchi",
+    "displayName": "Ranchi, Jharkhand, India",
+    "city": "Ranchi",
+    "state": "Jharkhand",
+    "country": "India",
+    "latitude": 23.3441,
+    "longitude": 85.3096,
+    "alternateNames": [
+      "Ranchi"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Jharkhand with 199 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_amravati",
+    "name": "Amravati",
+    "displayName": "Amravati, Maharashtra, India",
+    "city": "Amravati",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 20.932,
+    "longitude": 77.7523,
+    "alternateNames": [
+      "Amravati"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Maharashtra with 155 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_amritsar",
+    "name": "Amritsar",
+    "displayName": "Amritsar, Punjab, India",
+    "city": "Amritsar",
+    "state": "Punjab",
+    "country": "India",
+    "latitude": 31.634,
+    "longitude": 74.8723,
+    "alternateNames": [
+      "Amritsar"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Punjab with 433 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_visakhapatnam",
+    "name": "Visakhapatnam",
+    "displayName": "Visakhapatnam, Andhra Pradesh, India",
+    "city": "Visakhapatnam",
+    "state": "Andhra Pradesh",
+    "country": "India",
+    "latitude": 17.6868,
+    "longitude": 83.2185,
+    "alternateNames": [
+      "Visakhapatnam"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Andhra Pradesh with 93 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_saharanpur",
+    "name": "Saharanpur",
+    "displayName": "Saharanpur, India, India",
+    "city": "Saharanpur",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Saharanpur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 145 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jabalpur",
+    "name": "Jabalpur",
+    "displayName": "Jabalpur, Madhya Pradesh, India",
+    "city": "Jabalpur",
+    "state": "Madhya Pradesh",
+    "country": "India",
+    "latitude": 23.1815,
+    "longitude": 79.9864,
+    "alternateNames": [
+      "Jabalpur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Madhya Pradesh with 199 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_darbhanga",
+    "name": "Darbhanga",
+    "displayName": "Darbhanga, India, India",
+    "city": "Darbhanga",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Darbhanga"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 63 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_bhavnagar",
+    "name": "Bhavnagar",
+    "displayName": "Bhavnagar, India, India",
+    "city": "Bhavnagar",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Bhavnagar"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 111 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_guntur",
+    "name": "Guntur",
+    "displayName": "Guntur, India, India",
+    "city": "Guntur",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Guntur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 179 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_motihari",
+    "name": "Motihari",
+    "displayName": "Motihari, India, India",
+    "city": "Motihari",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Motihari"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 16 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jhansi",
+    "name": "Jhansi",
+    "displayName": "Jhansi, India, India",
+    "city": "Jhansi",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Jhansi"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 203 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_firozabad",
+    "name": "Firozabad",
+    "displayName": "Firozabad, India, India",
+    "city": "Firozabad",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Firozabad"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 36 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_haridwar",
+    "name": "Haridwar",
+    "displayName": "Haridwar, Uttarakhand, India",
+    "city": "Haridwar",
+    "state": "Uttarakhand",
+    "country": "India",
+    "latitude": 29.9457,
+    "longitude": 78.1642,
+    "alternateNames": [
+      "Haridwar"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttarakhand with 88 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_manipal",
+    "name": "Manipal",
+    "displayName": "Manipal, India, India",
+    "city": "Manipal",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Manipal"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 73 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_gonda",
+    "name": "Gonda",
+    "displayName": "Gonda, India, India",
+    "city": "Gonda",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Gonda"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 26 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_bikaner",
+    "name": "Bikaner",
+    "displayName": "Bikaner, India, India",
+    "city": "Bikaner",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Bikaner"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 157 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jalgaon",
+    "name": "Jalgaon",
+    "displayName": "Jalgaon, Maharashtra, India",
+    "city": "Jalgaon",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 21.0077,
+    "longitude": 75.5626,
+    "alternateNames": [
+      "Jalgaon"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Maharashtra with 124 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_palakkad",
+    "name": "Palakkad",
+    "displayName": "Palakkad, India, India",
+    "city": "Palakkad",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Palakkad"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 80 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_tirunelveli",
+    "name": "Tirunelveli",
+    "displayName": "Tirunelveli, India, India",
+    "city": "Tirunelveli",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Tirunelveli"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 108 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_madurai",
+    "name": "Madurai",
+    "displayName": "Madurai, Tamil Nadu, India",
+    "city": "Madurai",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "latitude": 9.9252,
+    "longitude": 78.1198,
+    "alternateNames": [
+      "Madurai"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Tamil Nadu with 276 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_patiala",
+    "name": "Patiala",
+    "displayName": "Patiala, India, India",
+    "city": "Patiala",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Patiala"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 237 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_belgaum",
+    "name": "Belgaum",
+    "displayName": "Belgaum, Karnataka, India",
+    "city": "Belgaum",
+    "state": "Karnataka",
+    "country": "India",
+    "latitude": 15.8497,
+    "longitude": 74.4977,
+    "alternateNames": [
+      "Belgaum"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Karnataka with 179 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_asansol",
+    "name": "Asansol",
+    "displayName": "Asansol, West Bengal, India",
+    "city": "Asansol",
+    "state": "West Bengal",
+    "country": "India",
+    "latitude": 23.6739,
+    "longitude": 86.9524,
+    "alternateNames": [
+      "Asansol"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in West Bengal with 88 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_ujjain",
+    "name": "Ujjain",
+    "displayName": "Ujjain, Madhya Pradesh, India",
+    "city": "Ujjain",
+    "state": "Madhya Pradesh",
+    "country": "India",
+    "latitude": 23.1765,
+    "longitude": 75.7885,
+    "alternateNames": [
+      "Ujjain"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Madhya Pradesh with 93 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_trivandrum",
+    "name": "Trivandrum",
+    "displayName": "Trivandrum, India, India",
+    "city": "Trivandrum",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Trivandrum"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 257 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_solapur",
+    "name": "Solapur",
+    "displayName": "Solapur, Maharashtra, India",
+    "city": "Solapur",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 17.6599,
+    "longitude": 75.9064,
+    "alternateNames": [
+      "Solapur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Maharashtra with 194 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_kharagpur",
+    "name": "Kharagpur",
+    "displayName": "Kharagpur, India, India",
+    "city": "Kharagpur",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Kharagpur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 59 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_sangli",
+    "name": "Sangli",
+    "displayName": "Sangli, Maharashtra, India",
+    "city": "Sangli",
+    "state": "Maharashtra",
+    "country": "India",
+    "latitude": 16.8524,
+    "longitude": 74.5815,
+    "alternateNames": [
+      "Sangli"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Maharashtra with 128 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_alappuzha",
+    "name": "Alappuzha",
+    "displayName": "Alappuzha, India, India",
+    "city": "Alappuzha",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Alappuzha"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 29 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jamnagar",
+    "name": "Jamnagar",
+    "displayName": "Jamnagar, India, India",
+    "city": "Jamnagar",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Jamnagar"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 73 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_nainital",
+    "name": "Nainital",
+    "displayName": "Nainital, Uttarakhand, India",
+    "city": "Nainital",
+    "state": "Uttarakhand",
+    "country": "India",
+    "latitude": 29.3919,
+    "longitude": 79.4542,
+    "alternateNames": [
+      "Nainital"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Uttarakhand with 10 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_thrissur",
+    "name": "Thrissur",
+    "displayName": "Thrissur, India, India",
+    "city": "Thrissur",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Thrissur"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 141 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_junagadh",
+    "name": "Junagadh",
+    "displayName": "Junagadh, India, India",
+    "city": "Junagadh",
+    "state": "India",
+    "country": "India",
+    "latitude": 20.5937,
+    "longitude": 78.9629,
+    "alternateNames": [
+      "Junagadh"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in India with 37 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  },
+  {
+    "id": "dest_jammu",
+    "name": "Jammu",
+    "displayName": "Jammu, Jammu and Kashmir, India",
+    "city": "Jammu",
+    "state": "Jammu and Kashmir",
+    "country": "India",
+    "latitude": 32.7266,
+    "longitude": 74.857,
+    "alternateNames": [
+      "Jammu"
+    ],
+    "source": "dataset",
+    "isCurated": false,
+    "tagline": "Vibrant city in Jammu and Kashmir with 3 featured local culinary spots",
+    "heroImage": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80",
+    "popularCategories": [
+      "Food",
+      "Local Culture",
+      "City Life"
+    ]
+  }
+]

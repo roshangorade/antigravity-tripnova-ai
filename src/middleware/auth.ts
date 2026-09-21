@@ -1,12 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
-import { adminAuth } from '../lib/firebase-admin.ts';
-import { DecodedIdToken } from 'firebase-admin/auth';
+import { verifyToken, UserRole } from '../lib/auth.ts';
 import { db } from '../db/index.ts';
 import { users } from '../db/schema.ts';
 import { eq } from 'drizzle-orm';
+import { adminAuth } from '../lib/firebase-admin.ts';
+
+export interface AuthenticatedUser {
+  userId?: number;
+  uid: string;
+  email: string;
+  role: UserRole;
+  name?: string;
+}
 
 export interface AuthRequest extends Request {
-  user?: DecodedIdToken & { role?: string };
+  user?: AuthenticatedUser;
 }
 
 export const requireAuth = async (
@@ -16,44 +24,57 @@ export const requireAuth = async (
 ): Promise<void> => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ error: 'Unauthorized: Missing token' });
+    res.status(401).json({ success: false, error: 'Unauthorized: Missing or malformed authorization token.' });
     return;
   }
 
-  const token = authHeader.split('Bearer ')[1];
-  if (token === 'fake-token-for-now' || token === 'admin-demo-token') {
+  const token = authHeader.split('Bearer ')[1]?.trim();
+  if (!token) {
+    res.status(401).json({ success: false, error: 'Unauthorized: Empty token provided.' });
+    return;
+  }
+
+  // 1. Verify our application JWT token
+  const decoded = verifyToken(token);
+  if (decoded) {
     req.user = {
-      uid: 'admin_demo_uid',
-      email: 'admin@roammind.ai',
-      role: 'ADMIN',
-      aud: 'demo', auth_time: Date.now(), exp: Math.floor(Date.now() / 1000) + 3600, iat: Math.floor(Date.now() / 1000),
-      firebase: { identities: {}, sign_in_provider: 'custom' },
-      iss: 'demo', sub: 'admin_demo_uid', user_id: 'admin_demo_uid'
+      userId: decoded.userId,
+      uid: decoded.uid,
+      email: decoded.email,
+      role: decoded.role,
+      name: decoded.name
     };
     next();
     return;
   }
 
-  if (token === 'user-demo-token') {
-    req.user = {
-      uid: 'user_demo_uid',
-      email: 'traveler@roammind.ai',
-      role: 'USER',
-      aud: 'demo', auth_time: Date.now(), exp: Math.floor(Date.now() / 1000) + 3600, iat: Math.floor(Date.now() / 1000),
-      firebase: { identities: {}, sign_in_provider: 'custom' },
-      iss: 'demo', sub: 'user_demo_uid', user_id: 'user_demo_uid'
-    };
-    next();
-    return;
-  }
-
+  // 2. Optional fallback to Firebase ID token if configured and valid
   try {
-    const decodedToken = await adminAuth.verifyIdToken(token);
-    req.user = decodedToken;
+    const firebaseDecoded = await adminAuth.verifyIdToken(token);
+    let userRole: UserRole = 'USER';
+    try {
+      const records = await db.select().from(users).where(eq(users.uid, firebaseDecoded.uid));
+      if (records.length > 0 && records[0].role) {
+        userRole = records[0].role as UserRole;
+      }
+    } catch {
+      // Fallback
+    }
+
+    req.user = {
+      uid: firebaseDecoded.uid,
+      email: firebaseDecoded.email || 'user@tripnova.ai',
+      role: userRole,
+      name: firebaseDecoded.name
+    };
     next();
-  } catch (error) {
-    console.error('Error verifying Firebase ID token:', error);
-    res.status(401).json({ error: 'Unauthorized: Invalid token' });
+    return;
+  } catch (err) {
+    // Both JWT and Firebase verification failed
+    res.status(401).json({
+      success: false,
+      error: 'Unauthorized: Invalid or expired authentication token. Please sign in again.'
+    });
   }
 };
 
@@ -63,24 +84,50 @@ export const requireAdmin = async (
   next: NextFunction
 ): Promise<void> => {
   if (!req.user) {
-    res.status(401).json({ error: 'Unauthorized: Missing user info' });
+    res.status(401).json({ success: false, error: 'Unauthorized: Authentication required.' });
     return;
   }
 
-  if (req.user.role === 'ADMIN' || req.user.uid === 'admin_demo_uid') {
+  if (req.user.role === 'ADMIN') {
     next();
     return;
   }
 
+  // Verify against database role for source of truth
   try {
-    const userRecords = await db.select().from(users).where(eq(users.uid, req.user.uid));
-    if (userRecords.length === 0 || userRecords[0].role !== 'ADMIN') {
-      res.status(403).json({ error: 'Forbidden: Admin access required' });
+    if (req.user.uid) {
+      const userRecords = await db.select().from(users).where(eq(users.uid, req.user.uid));
+      if (userRecords.length > 0 && userRecords[0].role === 'ADMIN') {
+        req.user.role = 'ADMIN';
+        next();
+        return;
+      }
+    }
+  } catch (error) {
+    console.warn('Database check in requireAdmin error:', error);
+  }
+
+  res.status(403).json({
+    success: false,
+    error: 'Forbidden: Administrative privileges required to access this resource.'
+  });
+};
+
+export const requireRole = (...allowedRoles: UserRole[]) => {
+  return async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+    if (!req.user) {
+      res.status(401).json({ success: false, error: 'Unauthorized: Authentication required.' });
       return;
     }
-    next();
-  } catch (error) {
-    console.error('Error verifying admin role:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+
+    if (req.user.role === 'ADMIN' || allowedRoles.includes(req.user.role)) {
+      next();
+      return;
+    }
+
+    res.status(403).json({
+      success: false,
+      error: `Forbidden: Access requires one of the following roles: ${allowedRoles.join(', ')}`
+    });
+  };
 };

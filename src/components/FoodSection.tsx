@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { FEATURED_RESTAURANTS } from '../data/travelData';
+import { IMPORTED_RESTAURANTS } from '../data/importedData';
+import { PersonalizedRecommendationsModal } from './PersonalizedRecommendationsModal';
 import { Restaurant } from '../types';
 import { Utensils, Star, MapPin, Search, Sparkles, Coffee, Compass, ExternalLink, Phone } from 'lucide-react';
 
+import { CanonicalDestination } from '../types';
+import { DestinationSearchInput } from './DestinationSearchInput';
+
 interface FoodSectionProps {
   isDarkMode: boolean;
+  currentDestination?: CanonicalDestination | null;
+  onDestinationChange?: (destination: CanonicalDestination) => void;
 }
 
 interface LocalResultItem {
@@ -21,85 +28,123 @@ interface LocalResultItem {
   openState?: string;
   description?: string;
   isLive?: boolean;
+  source?: string;
+  distanceKm?: number;
+  distanceLabel?: string;
 }
 
-export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
+export const FoodSection: React.FC<FoodSectionProps> = ({ 
+  isDarkMode,
+  currentDestination,
+  onDestinationChange
+}) => {
   const [selectedTag, setSelectedTag] = useState<string>('All');
   const [reservingRest, setReservingRest] = useState<Restaurant | null>(null);
+  const [aiModalOpen, setAiModalOpen] = useState(false);
 
-  // Live SerpApi Google Local Search State
-  const [localLocation, setLocalLocation] = useState<string>('Goa');
+  // Live Google Local / Local Dataset Search State
+  const [localLocation, setLocalLocation] = useState<string>(currentDestination?.name || 'Nashik');
+  const [resolvedCoords, setResolvedCoords] = useState<{ lat?: number; lng?: number }>({
+    lat: currentDestination?.latitude,
+    lng: currentDestination?.longitude
+  });
   const [localQuery, setLocalQuery] = useState<string>('Restaurants & Street Food');
   const [localResults, setLocalResults] = useState<LocalResultItem[]>([]);
   const [isLoadingLocal, setIsLoadingLocal] = useState<boolean>(false);
   const [isLiveLocal, setIsLiveLocal] = useState<boolean>(false);
   const [localStatusMsg, setLocalStatusMsg] = useState<string | null>(null);
 
+  // Race condition prevention refs
+  const activeLocalRequestRef = React.useRef<AbortController | null>(null);
+  const activeRequestIdRef = React.useRef<number>(0);
+
+  // Sync if global destination changes
+  useEffect(() => {
+    if (currentDestination && currentDestination.name) {
+      setLocalLocation(currentDestination.name);
+      setResolvedCoords({ lat: currentDestination.latitude, lng: currentDestination.longitude });
+      fetchLocalPlaces(currentDestination.name, localQuery, currentDestination.latitude, currentDestination.longitude);
+    }
+  }, [currentDestination]);
+
   const presets = [
-    { label: 'Restaurants in Goa', loc: 'Goa', q: 'Restaurants' },
-    { label: 'Street food in Mumbai', loc: 'Mumbai', q: 'Street food' },
-    { label: 'Best cafes in Manali', loc: 'Manali', q: 'Best cafes' },
-    { label: 'Tourist attractions in Jaipur', loc: 'Jaipur', q: 'Tourist attractions' },
-    { label: 'Things to do in Delhi', loc: 'Delhi', q: 'Things to do' },
+    { label: 'Restaurants in Nashik', loc: 'Nashik', q: 'Restaurants' },
+    { label: 'Food in Chhatrapati Sambhajinagar', loc: 'Chhatrapati Sambhajinagar', q: 'Street food' },
+    { label: 'Cafes in Pune', loc: 'Pune', q: 'Best cafes' },
+    { label: 'Restaurants in Mumbai', loc: 'Mumbai', q: 'Restaurants' },
+    { label: 'Dining in Dubai', loc: 'Dubai', q: 'Fine dining' },
   ];
 
-  const fetchLocalPlaces = async (loc: string, q: string) => {
+  const fetchLocalPlaces = async (loc: string, q: string, lat?: number, lng?: number) => {
+    const trimmedLoc = (loc || '').trim();
+    if (!trimmedLoc) return;
+
+    if (activeLocalRequestRef.current) {
+      activeLocalRequestRef.current.abort();
+    }
+    const controller = new AbortController();
+    activeLocalRequestRef.current = controller;
+    const reqId = ++activeRequestIdRef.current;
+
     setIsLoadingLocal(true);
     setLocalStatusMsg(null);
     try {
       const params = new URLSearchParams({
-        location: loc || 'Goa',
+        location: trimmedLoc,
         q: q || 'Restaurants'
       });
+      if (lat !== undefined && lng !== undefined) {
+        params.append('lat', String(lat));
+        params.append('lng', String(lng));
+      }
 
-      const res = await fetch(`/api/search/local?${params.toString()}`);
+      const res = await fetch(`/api/search/local?${params.toString()}`, {
+        signal: controller.signal
+      });
       const data = await res.json();
+
+      if (reqId !== activeRequestIdRef.current) return;
 
       if (data.success && Array.isArray(data.results) && data.results.length > 0) {
         setLocalResults(data.results);
         setIsLiveLocal(Boolean(data.isLive));
         if (data.message) setLocalStatusMsg(data.message);
       } else {
-        fallbackLocal(loc);
-        setLocalStatusMsg('Serving curated local dining spots.');
+        // STRICT: Never fall back to unrelated cities!
+        setLocalResults([]);
+        setIsLiveLocal(false);
+        setLocalStatusMsg(`No verified dining places found in ${trimmedLoc}. Try adjusting your search keywords.`);
       }
-    } catch (err) {
-      console.error('Error fetching local places:', err);
-      fallbackLocal(loc);
-      setLocalStatusMsg('Unable to load local recommendations right now. Displaying curated options.');
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
+        console.error('Error fetching local places:', err);
+        setLocalResults([]);
+        setLocalStatusMsg(`Unable to load recommendations for ${trimmedLoc}.`);
+      }
     } finally {
-      setIsLoadingLocal(false);
+      if (reqId === activeRequestIdRef.current) {
+        setIsLoadingLocal(false);
+      }
     }
   };
 
-  const fallbackLocal = (loc: string) => {
-    const filtered = FEATURED_RESTAURANTS.filter(r =>
-      !loc || r.destination.toLowerCase().includes(loc.toLowerCase())
-    );
-    const mapped: LocalResultItem[] = (filtered.length > 0 ? filtered : FEATURED_RESTAURANTS).map(r => ({
-      id: r.id,
-      title: r.name,
-      category: r.type,
-      address: `${r.address}, ${r.destination}`,
-      rating: r.rating,
-      reviewsCount: 120,
-      priceLevel: `₹${r.avgMealCostForTwoINR} for two`,
-      thumbnail: r.image,
-      description: r.mustTryDishes.join(', '),
-      openState: 'Open for dining',
-      isLive: false
-    }));
-    setLocalResults(mapped);
-    setIsLiveLocal(false);
-  };
-
   useEffect(() => {
-    fetchLocalPlaces('Goa', 'Restaurants & Street Food');
+    const initialName = currentDestination?.name || 'Nashik';
+    fetchLocalPlaces(initialName, 'Restaurants & Street Food', currentDestination?.latitude, currentDestination?.longitude);
   }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchLocalPlaces(localLocation, localQuery);
+    fetchLocalPlaces(localLocation, localQuery, resolvedCoords.lat, resolvedCoords.lng);
+  };
+
+  const handleDestinationResolved = (canonical: CanonicalDestination) => {
+    setLocalLocation(canonical.name);
+    setResolvedCoords({ lat: canonical.latitude, lng: canonical.longitude });
+    if (onDestinationChange) {
+      onDestinationChange(canonical);
+    }
+    fetchLocalPlaces(canonical.name, localQuery, canonical.latitude, canonical.longitude);
   };
 
   const handlePresetClick = (loc: string, q: string) => {
@@ -139,34 +184,41 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
               Discover popular local spots, authentic street food stalls, cafes, and iconic attractions in any city.
             </p>
           </div>
-        </div>
 
-        {/* Live Search Panel */}
+          <button
+            type="button"
+            onClick={() => setAiModalOpen(true)}
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 via-rose-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-xs sm:text-sm font-bold shadow-md shadow-orange-500/20 flex items-center gap-1.5 transition-all transform hover:scale-[1.02] cursor-pointer self-start md:self-auto"
+          >
+            <Sparkles className="w-4 h-4 animate-pulse" />
+            <span>✨ Gemini AI Food Pairings</span>
+          </button>
+        </div>        {/* Live Search Panel */}
         <div className={`mb-12 p-5 sm:p-6 rounded-2xl border shadow-xs ${isDarkMode ? 'bg-[#131E32] border-slate-800' : 'bg-slate-50 border-slate-300'}`}>
           <form onSubmit={handleSearchSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                  Location / City
-                </label>
-                <div className="relative">
-                  <MapPin className="w-4 h-4 absolute left-3 top-3 text-sky-500" />
-                  <input
-                    type="text"
-                    value={localLocation}
-                    onChange={(e) => setLocalLocation(e.target.value)}
-                    placeholder="e.g. Goa, Mumbai, Jaipur..."
-                    className={`w-full pl-9 pr-3 py-2 text-xs font-medium rounded-xl border focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-sky-500 placeholder:text-slate-500 ${
-                      isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-300 text-slate-900'
-                    }`}
-                    required
-                  />
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-4">
+              <div className="md:col-span-5">
+                <DestinationSearchInput
+                  id="food-dest-input"
+                  label="Location / City"
+                  value={localLocation}
+                  onChange={(val, coords) => {
+                    setLocalLocation(val);
+                    if (coords) {
+                      setResolvedCoords(coords);
+                    }
+                  }}
+                  onSelectCanonical={handleDestinationResolved}
+                  placeholder="e.g. Nashik, Chhatrapati Sambhajinagar, Dubai..."
+                  isDarkMode={isDarkMode}
+                  showPopularChips={false}
+                  showInlineChips={false}
+                />
               </div>
 
-              <div>
+              <div className="md:col-span-4">
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                  What are you looking for?
+                  Category / Query
                 </label>
                 <div className="relative">
                   <Utensils className="w-4 h-4 absolute left-3 top-3 text-sky-500" />
@@ -174,7 +226,7 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
                     type="text"
                     value={localQuery}
                     onChange={(e) => setLocalQuery(e.target.value)}
-                    placeholder="e.g. Restaurants, Cafes, Street food, Tourist attractions..."
+                    placeholder="e.g. Restaurants, Cafes, Street food, Biryani..."
                     className={`w-full pl-9 pr-3 py-2 text-xs font-medium rounded-xl border focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-sky-500 placeholder:text-slate-500 ${
                       isDarkMode ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-300 text-slate-900'
                     }`}
@@ -183,7 +235,7 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
                 </div>
               </div>
 
-              <div className="flex items-end">
+              <div className="md:col-span-3 flex items-end">
                 <button
                   type="submit"
                   disabled={isLoadingLocal}
@@ -194,7 +246,7 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
                   ) : (
                     <>
                       <Search className="w-4 h-4 text-sky-400 dark:text-sky-200" />
-                      <span>Search Google Local</span>
+                      <span>Search Dining</span>
                     </>
                   )}
                 </button>
@@ -227,7 +279,15 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
           {isLoadingLocal ? (
             <div className="py-12 text-center">
               <div className="w-7 h-7 border-3 border-sky-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-              <p className="text-xs font-medium text-slate-600 dark:text-slate-400">Searching live local spots for {localLocation}...</p>
+              <p className="text-xs font-medium text-slate-600 dark:text-slate-400">Searching verified local dining spots for {localLocation}...</p>
+            </div>
+          ) : localResults.length === 0 ? (
+            <div className="mt-6 py-12 text-center border rounded-2xl bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 p-6">
+              <Utensils className="w-10 h-10 text-slate-400 mx-auto mb-3" />
+              <h4 className="text-base font-bold text-slate-900 dark:text-white">No verified dining spots found in {localLocation}</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 max-w-md mx-auto">
+                No verified restaurants found for category "{localQuery}". Try searching for broader terms like "Restaurants", "Cafes", or "Street Food".
+              </p>
             </div>
           ) : (
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -248,9 +308,14 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
                       <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-slate-900/80 text-white text-xs font-medium">
                         {place.category}
                       </span>
-                      {place.isLive && (
+                      {place.distanceLabel && (
+                        <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-slate-900/90 text-amber-400 text-[10px] font-bold border border-amber-500/30">
+                          {place.distanceLabel}
+                        </span>
+                      )}
+                      {place.source && (
                         <span className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-sky-600 text-white text-[10px] font-semibold uppercase">
-                          Google Local
+                          {place.source === 'local_dataset' ? '27k+ Dataset' : place.source}
                         </span>
                       )}
                     </div>
@@ -278,7 +343,7 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
 
                   <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
                     <span className="font-semibold text-slate-700 dark:text-slate-300">
-                      {place.priceLevel || place.openState || 'Open for visitors'}
+                      {place.priceLevel || place.openState || 'Open for dining'}
                     </span>
 
                     {place.website ? (
@@ -434,6 +499,14 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ isDarkMode }) => {
           </div>
         </div>
       )}
+
+      {/* Gemini AI Personalized Recommendations Modal */}
+      <PersonalizedRecommendationsModal
+        isOpen={aiModalOpen}
+        onClose={() => setAiModalOpen(false)}
+        isDarkMode={isDarkMode}
+        initialDestination={localLocation || 'Goa'}
+      />
     </section>
   );
 };

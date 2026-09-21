@@ -6,6 +6,87 @@ export interface LocationCoordinates {
   lng: number;
 }
 
+export interface CanonicalDestination {
+  id: string;
+  name: string;
+  displayName: string;
+  city: string;
+  state: string | null;
+  country: string;
+  latitude: number;
+  longitude: number;
+  coordinates?: LocationCoordinates;
+  placeId: string | null;
+  source: 'dataset' | 'geocoding' | 'google_places' | 'serpapi' | 'osm' | string;
+  isCurated?: boolean;
+  tagline?: string;
+  heroImage?: string;
+  popularCategories?: string[];
+  alternateNames?: string[];
+  avgDailyCostINR?: number;
+}
+
+export interface AttractionItem {
+  id: string;
+  name: string;
+  destination: string;
+  category: string;
+  rating?: number;
+  reviewsCount?: number;
+  image?: string;
+  fee?: string;
+  description?: string;
+  latitude?: number;
+  longitude?: number;
+  coordinates?: LocationCoordinates;
+  distanceKm?: number;
+  distanceLabel?: string;
+  source: 'dataset' | 'google_places' | 'serpapi' | 'osm' | string;
+}
+
+export interface SearchAuditDiagnosticData {
+  searchQuery: string;
+  resolvedDestination: CanonicalDestination | null;
+  hotels: {
+    localCount: number;
+    dbCount: number;
+    externalCount: number;
+    finalCount: number;
+    source: string;
+    items: any[];
+  };
+  restaurants: {
+    localCount: number;
+    dbCount: number;
+    externalCount: number;
+    finalCount: number;
+    source: string;
+    items: any[];
+  };
+  attractions: {
+    localCount: number;
+    externalCount: number;
+    finalCount: number;
+    source: string;
+    items: AttractionItem[];
+  };
+  weather: {
+    source: string;
+    city: string;
+    tempC: number;
+    condition: string;
+  };
+  map: {
+    source: string;
+    center: LocationCoordinates;
+  };
+  ai: {
+    destination: string;
+    budget: number;
+  };
+}
+
+
 export interface Activity {
   id: string;
   time: string; // e.g. "09:00 AM"
@@ -36,6 +117,15 @@ export interface ItineraryDay {
   };
 }
 
+export interface TripBudgetBreakdown {
+  transportationINR: number;
+  accommodationINR: number;
+  foodINR: number;
+  activitiesINR: number;
+  localTravelINR: number;
+  remainingBudgetINR: number;
+}
+
 export interface TravelItinerary {
   id: string;
   title: string;
@@ -45,10 +135,13 @@ export interface TravelItinerary {
   endDate: string;
   durationDays: number;
   travelersCount: number;
-  budgetTier: BudgetTier;
+  budget?: number; // User-selected or custom numeric budget in INR
+  budgetTier?: BudgetTier; // Kept optional for backward compatibility
   travelStyle: TravelStyle;
   interests: string[];
   totalEstimatedCostINR: number;
+  remainingBudgetINR?: number;
+  budgetBreakdown?: TripBudgetBreakdown;
   currency: string;
   days: ItineraryDay[];
   packingChecklist: string[];
@@ -129,6 +222,9 @@ export interface Restaurant {
   mustTryDishes: string[];
   dietaryTags: ('Vegetarian' | 'Vegan' | 'Halal' | 'Gluten-Free' | 'Jain')[];
   address: string;
+  reviewsCount?: number;
+  isPopular?: boolean;
+  vibe?: string;
 }
 
 export interface TravelCategory {

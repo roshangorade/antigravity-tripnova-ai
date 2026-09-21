@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TravelItinerary, Activity, ItineraryDay } from '../types';
-import { Calendar, Clock, MapPin, DollarSign, Sun, Coffee, Sunrise, Sunset, Moon, Plus, Trash2, Download, Share2, Edit2, CheckCircle2, ShieldAlert, Sparkles, Navigation, Route as RouteIcon, ExternalLink, Loader2 } from 'lucide-react';
+import { Calendar, Clock, MapPin, DollarSign, Sun, Coffee, Sunrise, Sunset, Moon, Plus, Trash2, Download, Share2, Edit2, CheckCircle2, ShieldAlert, Sparkles, Navigation, Route as RouteIcon, ExternalLink, Loader2, Wallet, IndianRupee, AlertTriangle, Check } from 'lucide-react';
 
 interface TripItineraryViewProps {
   itinerary: TravelItinerary;
@@ -182,9 +182,12 @@ export const TripItineraryView: React.FC<TripItineraryViewProps> = ({
 
         <div className="flex items-center gap-2 flex-wrap">
           <div className="text-right mr-3 hidden sm:block">
-            <div className="text-xs text-slate-600 dark:text-slate-400 font-semibold">Estimated Budget</div>
-            <div className="text-lg font-bold text-slate-900 dark:text-white">
-              ₹{itinerary.totalEstimatedCostINR.toLocaleString('en-IN')}
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Your Trip Budget</div>
+            <div className="text-base font-bold text-sky-600 dark:text-sky-400">
+              ₹{(itinerary.budget || itinerary.totalEstimatedCostINR).toLocaleString('en-IN')}
+            </div>
+            <div className="text-[11px] text-slate-500 dark:text-slate-400">
+              Est. Cost: ₹{itinerary.totalEstimatedCostINR.toLocaleString('en-IN')}
             </div>
           </div>
 
@@ -208,6 +211,124 @@ export const TripItineraryView: React.FC<TripItineraryViewProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Trip Budget & Cost Overview Card */}
+      {(() => {
+        const userBudget = itinerary.budget || itinerary.totalEstimatedCostINR;
+        const estimatedCost = itinerary.totalEstimatedCostINR;
+        const remainingBudget = itinerary.remainingBudgetINR !== undefined 
+          ? itinerary.remainingBudgetINR 
+          : Math.max(0, userBudget - estimatedCost);
+        const isOverBudget = estimatedCost > userBudget;
+        const overAmount = isOverBudget ? estimatedCost - userBudget : 0;
+        const percentUsed = Math.min(100, Math.round((estimatedCost / Math.max(1, userBudget)) * 100));
+
+        return (
+          <div className={`p-4 sm:p-5 rounded-2xl border mb-6 transition-all ${
+            isDarkMode 
+              ? 'bg-slate-900/70 border-slate-750/90 shadow-inner' 
+              : 'bg-slate-50/90 border-slate-200 shadow-xs'
+          }`}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-slate-800">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+                  <Wallet className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">Trip Financial Overview</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Budget allocation, estimated costs & remaining balance</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {isOverBudget ? (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs font-semibold border border-rose-500/20">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    <span>₹{overAmount.toLocaleString('en-IN')} Over Budget</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold border border-emerald-500/20">
+                    <Check className="w-3.5 h-3.5" />
+                    <span>₹{remainingBudget.toLocaleString('en-IN')} Remaining</span>
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* 3 Metrics Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3">
+              <div className={`p-3 rounded-xl border ${isDarkMode ? 'bg-slate-850 border-slate-750' : 'bg-white border-slate-200'}`}>
+                <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  Your Trip Budget
+                </div>
+                <div className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+                  ₹{userBudget.toLocaleString('en-IN')}
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Selected trip budget
+                </div>
+              </div>
+
+              <div className={`p-3 rounded-xl border ${isDarkMode ? 'bg-slate-850 border-slate-750' : 'bg-white border-slate-200'}`}>
+                <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  Estimated Total Cost
+                </div>
+                <div className="text-lg font-bold text-sky-600 dark:text-sky-400 mt-0.5">
+                  ₹{estimatedCost.toLocaleString('en-IN')}
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Activities, food & transit
+                </div>
+              </div>
+
+              <div className={`p-3 rounded-xl border ${isDarkMode ? 'bg-slate-850 border-slate-750' : 'bg-white border-slate-200'}`}>
+                <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  Remaining Balance
+                </div>
+                <div className={`text-lg font-bold mt-0.5 ${
+                  isOverBudget ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'
+                }`}>
+                  {isOverBudget ? `-₹${overAmount.toLocaleString('en-IN')}` : `₹${remainingBudget.toLocaleString('en-IN')}`}
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  {percentUsed}% of budget utilized
+                </div>
+              </div>
+            </div>
+
+            {/* Breakdown Distribution if present */}
+            {itinerary.budgetBreakdown && (
+              <div className="mt-3 pt-3 border-t border-slate-200/80 dark:border-slate-800">
+                <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-2">
+                  Budget Distribution Breakdown:
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+                  <div className={`p-2 rounded-lg border ${isDarkMode ? 'bg-slate-800/60 border-slate-700' : 'bg-slate-100/80 border-slate-200'}`}>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">Accommodation</div>
+                    <div className="font-bold text-slate-900 dark:text-white">₹{itinerary.budgetBreakdown.accommodationINR.toLocaleString('en-IN')}</div>
+                  </div>
+                  <div className={`p-2 rounded-lg border ${isDarkMode ? 'bg-slate-800/60 border-slate-700' : 'bg-slate-100/80 border-slate-200'}`}>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">Food & Dining</div>
+                    <div className="font-bold text-slate-900 dark:text-white">₹{itinerary.budgetBreakdown.foodINR.toLocaleString('en-IN')}</div>
+                  </div>
+                  <div className={`p-2 rounded-lg border ${isDarkMode ? 'bg-slate-800/60 border-slate-700' : 'bg-slate-100/80 border-slate-200'}`}>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">Sightseeing & Tours</div>
+                    <div className="font-bold text-slate-900 dark:text-white">₹{itinerary.budgetBreakdown.activitiesINR.toLocaleString('en-IN')}</div>
+                  </div>
+                  <div className={`p-2 rounded-lg border ${isDarkMode ? 'bg-slate-800/60 border-slate-700' : 'bg-slate-100/80 border-slate-200'}`}>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">Transit & Travel</div>
+                    <div className="font-bold text-slate-900 dark:text-white">₹{itinerary.budgetBreakdown.localTravelINR.toLocaleString('en-IN')}</div>
+                  </div>
+                  <div className={`p-2 rounded-lg border ${isDarkMode ? 'bg-slate-800/60 border-slate-700' : 'bg-slate-100/80 border-slate-200'}`}>
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">Buffer / Reserve</div>
+                    <div className="font-bold text-slate-900 dark:text-white">₹{itinerary.budgetBreakdown.remainingBudgetINR.toLocaleString('en-IN')}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Day Selector Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
